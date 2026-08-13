@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "target": "qualifying_public_reset_event",
+  "reviewed_at": "2026-08-13T13:30:00Z",
+  "events": [
+    {
+      "id": "x-2081940052154933696",
+      "announced_at": "2026-07-28T03:09:23.666Z",
+      "effective_at": null,
+      "occurred_at": "2026-07-28T03:09:23.666Z",
+      "scope": "global_paid",
+      "type": "hard_reset",
+      "status": "confirmed",
+      "confidence": "confirmed",
+      "source_url": "https://x.com/thsottiaux/status/2081940052154933696",
+      "evidence": "Explicit completed reset announcement for paid Codex and ChatGPT Work users.",
+      "review_note": "Announcement time is used because a separate effective timestamp is not publicly established."
+    },
+    {
+      "id": "x-2082317452755751098",
+      "announced_at": "2026-07-29T04:09:02Z",
+      "effective_at": null,
+      "occurred_at": "2026-07-29T04:09:02Z",
+      "scope": "global",
+      "type": "hard_reset",
+      "status": "confirmed",
+      "confidence": "confirmed",
+      "source_url": "https://x.com/thsottiaux/status/2082317452755751098",
+      "evidence": "Explicit completed reset announcement for ChatGPT Work and Codex users.",
+      "review_note": "Announcement time is used because a separate effective timestamp is not publicly established."
+    },
+    {
+      "id": "x-2083395449814229287",
+      "announced_at": "2026-08-01T03:32:37Z",
+      "effective_at": null,
+      "occurred_at": "2026-08-01T03:32:37Z",
+      "scope": "global",
+      "type": "hard_reset",
+      "status": "confirmed",
+      "confidence": "confirmed",
+      "source_url": "https://x.com/thsottiaux/status/2083395449814229287",
+      "evidence": "Explicit completed reset announcement for Codex and ChatGPT Work usage limits.",
+      "review_note": "Announcement time is used because a separate effective timestamp is not publicly established."
+    },
+    {
+      "id": "x-2086188036493344823",
+      "announced_at": "2026-08-08T20:29:22Z",
+      "effective_at": null,
+      "occurred_at": "2026-08-08T20:29:22Z",
+      "scope": "global_paid",
+      "type": "hard_reset",
+      "status": "confirmed",
+      "confidence": "confirmed",
+      "source_url": "https://x.com/thsottiaux/status/2086188036493344823",
+      "evidence": "Explicit completed reset announcement for all paid ChatGPT Work and Codex users.",
+      "review_note": "Announcement time is used because a separate effective timestamp is not publicly established."
+    }
+  ]
+}
