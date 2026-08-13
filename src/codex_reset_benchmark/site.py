@@ -19,7 +19,7 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
     events = event_payload.get("events", [])
 
     scoring = score_archive(snapshots, events, sources, as_of=now)
-    docs_data = repo_root / "docs" / "data"
+    generated = repo_root / "docs" / "generated"
     leaderboard_payload = {
         key: scoring[key]
         for key in (
@@ -33,17 +33,14 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
             "baselines",
         )
     }
-    write_json(docs_data / "leaderboard.json", leaderboard_payload)
+    write_json(generated / "leaderboard.json", leaderboard_payload)
     calibration_payload = {
         "schema_version": 1,
         "methodology_version": scoring["methodology_version"],
         "generated_at": scoring["generated_at"],
         "sources": {
             source_id: {
-                horizon: {
-                    "samples": metrics["samples"],
-                    "calibration": metrics["calibration"],
-                }
+                horizon: {"samples": metrics["samples"], "calibration": metrics["calibration"]}
                 for horizon, metrics in horizons.items()
                 if metrics["samples"] > 0
             }
@@ -51,7 +48,7 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
             if any(metrics["samples"] > 0 for metrics in horizons.values())
         },
     }
-    write_json(docs_data / "calibration.json", calibration_payload)
+    write_json(generated / "calibration.json", calibration_payload)
 
     by_source: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for snapshot in snapshots:
@@ -66,17 +63,15 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
         if latest:
             age_hours = (now - parse_datetime(latest["observed_at"])).total_seconds() / 3600
             stale = age_hours > 2.5
-        latest_sources.append(
-            {
-                "id": source["id"],
-                "name": source["name"],
-                "url": source["url"],
-                "enabled": bool(source.get("enabled")),
-                "latest": latest,
-                "age_hours": round(age_hours, 2) if age_hours is not None else None,
-                "stale": stale,
-            }
-        )
+        latest_sources.append({
+            "id": source["id"],
+            "name": source["name"],
+            "url": source["url"],
+            "enabled": bool(source.get("enabled")),
+            "latest": latest,
+            "age_hours": round(age_hours, 2) if age_hours is not None else None,
+            "stale": stale,
+        })
 
     confirmed_events = [event for event in events if event.get("status") == "confirmed"]
     confirmed_events.sort(key=lambda event: event["occurred_at"])
@@ -86,7 +81,7 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
         "latest_confirmed_reset": confirmed_events[-1] if confirmed_events else None,
         "sources": latest_sources,
     }
-    write_json(docs_data / "latest.json", latest_payload)
+    write_json(generated / "latest.json", latest_payload)
 
     public_sources = [
         {
@@ -98,15 +93,12 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
         }
         for source in sources
     ]
-    write_json(docs_data / "sources.json", {"schema_version": 1, "generated_at": isoformat_z(now), "sources": public_sources})
-    write_json(
-        docs_data / "meta.json",
-        {
-            "schema_version": 1,
-            "generated_at": isoformat_z(now),
-            "methodology_version": scoring["methodology_version"],
-            "snapshot_count": len(snapshots),
-            "confirmed_event_count": len(confirmed_events),
-        },
-    )
+    write_json(generated / "sources.json", {"schema_version": 1, "generated_at": isoformat_z(now), "sources": public_sources})
+    write_json(generated / "meta.json", {
+        "schema_version": 1,
+        "generated_at": isoformat_z(now),
+        "methodology_version": scoring["methodology_version"],
+        "snapshot_count": len(snapshots),
+        "confirmed_event_count": len(confirmed_events),
+    })
     return scoring
