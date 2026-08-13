@@ -1,0 +1,44 @@
+:root {
+  color-scheme: light dark;
+  --bg: #0d1117;
+  --panel: #161b22;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --border: #30363d;
+  --accent: #58a6ff;
+  --good: #3fb950;
+  --warn: #d29922;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+a { color: var(--accent); }
+.container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+header { border-bottom: 1px solid var(--border); padding: 28px 0 20px; }
+header .top { display: flex; gap: 18px; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
+h1 { margin: 0 0 8px; font-size: clamp(1.7rem, 4vw, 2.5rem); }
+h2 { margin-top: 0; }
+.subtitle, .muted { color: var(--muted); }
+nav { display: flex; gap: 14px; flex-wrap: wrap; }
+main { padding: 28px 0 56px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+.metric { font-size: 2rem; font-weight: 700; margin: 6px 0; }
+.badge { display: inline-block; border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; color: var(--muted); font-size: .8rem; }
+.badge.good { color: var(--good); }
+.badge.warn { color: var(--warn); }
+table { width: 100%; border-collapse: collapse; min-width: 720px; }
+th, td { padding: 10px 9px; border-bottom: 1px solid var(--border); text-align: left; }
+th { color: var(--muted); font-weight: 600; }
+.table-wrap { overflow-x: auto; }
+section { margin: 0 0 26px; }
+footer { border-top: 1px solid var(--border); padding: 24px 0 40px; color: var(--muted); }
+code { background: rgba(110,118,129,.18); padding: .1em .3em; border-radius: 4px; }
+.notice { border-left: 3px solid var(--warn); padding-left: 12px; color: var(--muted); }
+.source-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.small { font-size: .875rem; }
