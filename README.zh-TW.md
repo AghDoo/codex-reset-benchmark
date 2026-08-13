@@ -10,7 +10,7 @@
 
 目前已有多個獨立社群網站針對非固定排程的 Codex 用量重置發布機率或估計。本專案會在結果未知前保存這些公開預測，再依照一致、公開的事件定義結算結果，並用同一套可重現的方法評分。
 
-Repository 本身就是 audit trail：GitHub Actions 會將 forecast snapshot 以 append-only NDJSON 保存；排行榜等衍生 JSON 則可以隨時由原始資料重新產生。
+Repository 本身就是 audit trail：forecast snapshot 以 append-only NDJSON 保存；排行榜等衍生 JSON 則可以隨時由原始資料重新產生。
 
 ## 核心原則
 
@@ -18,7 +18,7 @@ Repository 本身就是 audit trail：GitHub Actions 會將 forecast snapshot �
 - **共同 checkpoint：** 更新頻率高的網站不會因此取得較高權重。
 - **機率預測評分：** Brier Score 為主指標；Calibration、Log Loss、二元 Hit Rate、樣本數與 availability 為輔助診斷。
 - **不同 horizon 分開評分：** 5h、24h 與 48h 不混算。
-- **只蒐集公開資料：** 不登入、不使用 cookies/credentials、不繞過 CAPTCHA、anti-bot 或其他防護，也不存取私人帳戶資料。
+- **只蒐集公開資料：** collector 只使用公開端點，遇到存取限制即停止。
 - **可重現：** 原始資料與評分程式公開，計算結果具 deterministic 特性。
 
 ## 目前評分尺度
@@ -34,28 +34,28 @@ Repository 本身就是 audit trail：GitHub Actions 會將 forecast snapshot �
 ## Repository 結構
 
 ```text
-.github/workflows/       CI、每小時蒐集、Pages 部署
-src/codex_reset_benchmark/
-                         collectors、storage、validation、scoring
-scripts/                 CLI 入口
+src/codex_reset_benchmark/  collectors、storage、validation、score engine
+scripts/                    CLI 入口
 data/
-  sources.json           資料來源 registry
-  forecasts/             append-only 預測歷史
-  events/resets.json     經審核的 Ground Truth
-  status/                collector 健康狀態
-docs/                    GitHub Pages 靜態網站
-tests/                   單元測試
+  sources.json              資料來源 registry
+  forecasts/                append-only 預測歷史
+  events/resets.json        經審核的 Ground Truth
+  status/                   collector 健康狀態
+docs/                       GitHub Pages 靜態網站
+  generated/                可重新產生的衍生網站資料
+  zh/                       繁體中文網站
+tests/                      單元測試
 ```
 
-`data/` 是 audit/source layer；`docs/data/` 全部屬於可重新產生的 derived data。
+`data/` 是 audit/source layer；`docs/generated/` 全部屬於可重新產生的 derived data。
 
 ## 本機開發
 
 ```bash
 python -m pip install -e .
 python -m unittest discover -s tests -v
-python scripts/validate_data.py
-python scripts/score.py
+python scripts/check_data.py
+python scripts/rebuild_rankings.py
 python scripts/build_site_data.py
 ```
 
@@ -73,14 +73,11 @@ python scripts/collect.py
 - [資料 Schema](./docs/reference-data-schema.md)
 - [資料來源盤點](./docs/reference-sources.md)
 - [蒐集、更正與 opt-out 政策](./docs/reference-policies.md)
+- [參與貢獻](./docs/contributing.md)
 
 ## GitHub Pages
 
-靜態網站內容位於 `/docs`，對應目前 Repository 的 Pages source（`main:/docs`）。由於使用 `GITHUB_TOKEN` 的定時 workflow commit 不會觸發 branch-based Pages rebuild，線上 UI 會直接從 `raw.githubusercontent.com` 讀取 `main` 上最新的 generated JSON，並以已部署的 `/docs/data` 作為 fallback。
-
-## 參與貢獻
-
-請參考 [CONTRIBUTING.md](./CONTRIBUTING.md)。新增來源必須在公開頁面提供具有明確 horizon 的機率或估計值。需要登入、session cookie、CAPTCHA/anti-bot 繞過或侵入式爬取的來源不會納入。
+靜態網站內容位於 `/docs`，對應目前 Repository 的 Pages source（`main:/docs`）。線上 UI 會優先從 `raw.githubusercontent.com` 讀取 `main` 上最新的 generated JSON，並以已部署的 `/docs/generated` 作為 fallback。
 
 ## 免責聲明
 
