@@ -1,6 +1,6 @@
 (() => {
   const body = document.body;
-  const relativeDataBase = body.dataset.dataBase || "data";
+  const relativeDataBase = body.dataset.dataBase || "generated";
   const liveDataBase = body.dataset.liveDataBase || "";
   const isLocal = ["", "localhost", "127.0.0.1"].includes(window.location.hostname);
   const dataBases = !isLocal && liveDataBase ? [liveDataBase, relativeDataBase] : [relativeDataBase];
@@ -26,7 +26,7 @@
   function renderRanking(targetId, rows) {
     const target = document.getElementById(targetId);
     if (!target) return;
-    target.innerHTML = rows.map(row => `<tr><td>${row.rank ?? "—"}</td><td><a href="${esc(row.url)}" rel="noopener noreferrer">${esc(row.name)}</a></td><td>${fmtNum(row.brier)}</td><td>${fmtNum(row.log_loss)}</td><td>${fmtPct(row.hit_rate)}</td><td>${row.samples}</td><td>${fmtPct(row.availability)}</td><td><span class="badge ${row.eligible ? "good" : "warn"}">${row.eligible ? t.eligible : t.provisional}</span></td></tr>`).join("");
+    target.innerHTML = (rows || []).map(row => `<tr><td>${row.rank ?? "—"}</td><td><a href="${esc(row.url)}" rel="noopener noreferrer">${esc(row.name)}</a></td><td>${fmtNum(row.brier)}</td><td>${fmtNum(row.log_loss)}</td><td>${fmtPct(row.hit_rate)}</td><td>${row.samples}</td><td>${fmtPct(row.availability)}</td><td><span class="badge ${row.eligible ? "good" : "warn"}">${row.eligible ? t.eligible : t.provisional}</span></td></tr>`).join("");
   }
   function renderLatest(payload) {
     const reset = payload.latest_confirmed_reset;
@@ -34,7 +34,7 @@
     if (resetEl) resetEl.textContent = reset ? new Date(reset.occurred_at).toLocaleString() : "—";
     const sourceTarget = document.getElementById("latest-sources");
     if (!sourceTarget) return;
-    sourceTarget.innerHTML = payload.sources.filter(s => s.enabled).map(source => {
+    sourceTarget.innerHTML = (payload.sources || []).filter(s => s.enabled).map(source => {
       const latest = source.latest;
       const forecast = latest ? Object.entries(latest.forecasts).map(([h, p]) => `${h}: ${fmtPct(p)}`).join(" · ") : t.noData;
       const freshness = latest ? (source.stale ? t.stale : t.live) : t.never;
@@ -42,11 +42,12 @@
     }).join("");
   }
   Promise.all([loadJson("leaderboard.json"), loadJson("latest.json"), loadJson("meta.json")]).then(([leaderboard, latest, meta]) => {
-    renderRanking("ranking-5h", leaderboard.rankings["5h"] || []);
-    renderRanking("ranking-24h", leaderboard.rankings["24h"] || []);
-    renderRanking("ranking-48h", leaderboard.rankings["48h"] || []);
-    renderLatest(latest);
-    const updated = document.getElementById("updated-at"); if (updated) updated.textContent = new Date(meta.generated_at).toLocaleString();
-    const count = document.getElementById("snapshot-count"); if (count) count.textContent = meta.snapshot_count;
+    const rankings = leaderboard.rankings || {};
+    renderRanking("ranking-5h", rankings["5h"] || []);
+    renderRanking("ranking-24h", rankings["24h"] || []);
+    renderRanking("ranking-48h", rankings["48h"] || []);
+    renderLatest(latest || {});
+    const updated = document.getElementById("updated-at"); if (updated) updated.textContent = meta.generated_at ? new Date(meta.generated_at).toLocaleString() : "—";
+    const count = document.getElementById("snapshot-count"); if (count) count.textContent = meta.snapshot_count ?? 0;
   }).catch(error => { const errorEl = document.getElementById("load-error"); if (errorEl) errorEl.textContent = error.message; console.error(error); });
 })();
