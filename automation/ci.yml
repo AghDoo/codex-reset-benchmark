@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONPATH: src
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Validate repository data
+        run: python scripts/check_data.py
+      - name: Recompute scores
+        run: python scripts/rebuild_rankings.py
+      - name: Rebuild static data
+        run: python scripts/build_site_data.py
+      - name: Verify generated files
+        run: |
+          test -f docs/generated/leaderboard.json
+          test -f docs/generated/calibration.json
+          test -f docs/generated/latest.json
+          test -f docs/generated/sources.json
+          test -f docs/generated/meta.json
