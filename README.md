@@ -10,7 +10,7 @@ Independent benchmark for tracking and comparing community Codex reset predictio
 
 Several independent community sites publish probabilities or estimates for unscheduled Codex usage-limit resets. This project records those public forecasts before outcomes are known, resolves them against a documented public-event definition, and scores them under one reproducible methodology.
 
-The repository itself is the audit trail: forecast snapshots are append-only NDJSON committed by GitHub Actions, while derived leaderboard JSON can always be rebuilt from the archive.
+The repository itself is the audit trail: forecast snapshots are append-only NDJSON, while derived leaderboard JSON can always be rebuilt from the archive.
 
 ## Principles
 
@@ -18,7 +18,7 @@ The repository itself is the audit trail: forecast snapshots are append-only NDJ
 - **Common checkpoints:** high-frequency publishers do not receive extra weight.
 - **Probabilistic scoring:** Brier Score is the primary metric; calibration, log loss, binary hit rate, sample count, and availability are secondary diagnostics.
 - **Horizon separation:** 5h, 24h, and 48h forecasts are scored separately.
-- **Public-only collection:** no login, cookies, credentials, CAPTCHA bypass, anti-bot bypass, or private account data.
+- **Public-only collection:** collectors use only public endpoints and stop at access controls.
 - **Reproducibility:** source data and scoring code are public and deterministic.
 
 ## Current benchmark horizons
@@ -34,28 +34,28 @@ A 5h forecast must be no more than one hour old at a checkpoint; 24h and 48h for
 ## Repository layout
 
 ```text
-.github/workflows/       CI, hourly collection, Pages deployment
-src/codex_reset_benchmark/
-                         collectors, storage, validation, scoring
-scripts/                 CLI entry points
+src/codex_reset_benchmark/  collectors, storage, validation, score engine
+scripts/                    CLI entry points
 data/
-  sources.json           source registry
-  forecasts/             append-only forecast archive
-  events/resets.json     reviewed ground truth
-  status/                collector health state
-docs/                    static GitHub Pages site
-tests/                   unit tests
+  sources.json              source registry
+  forecasts/                append-only forecast archive
+  events/resets.json        reviewed ground truth
+  status/                   collector health state
+docs/                       static GitHub Pages site
+  generated/                rebuildable derived site data
+  zh/                       Traditional Chinese website
+tests/                      unit tests
 ```
 
-`data/` is the audit/source layer. `docs/data/` contains derived files and may be regenerated at any time.
+`data/` is the audit/source layer. `docs/generated/` contains derived files and may be regenerated at any time.
 
 ## Local development
 
 ```bash
 python -m pip install -e .
 python -m unittest discover -s tests -v
-python scripts/validate_data.py
-python scripts/score.py
+python scripts/check_data.py
+python scripts/rebuild_rankings.py
 python scripts/build_site_data.py
 ```
 
@@ -73,14 +73,11 @@ This writes new snapshots under `data/forecasts/YYYY/MM/DD.ndjson`; it never sto
 - [Data schema](./docs/reference-data-schema.md)
 - [Source inventory](./docs/reference-sources.md)
 - [Collection, correction, and opt-out policy](./docs/reference-policies.md)
+- [Contributing](./docs/contributing.md)
 
 ## GitHub Pages
 
-Static site files live in `/docs`, matching the repository Pages source (`main:/docs`). Because commits made by a scheduled workflow with `GITHUB_TOKEN` do not trigger a branch-based Pages rebuild, the live UI reads the newest generated JSON directly from `main` on `raw.githubusercontent.com`, with the deployed `/docs/data` files as a fallback.
-
-## Contributing
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md). New sources should expose a public probability or estimate with an identifiable forecast horizon. Submissions that require authentication, session cookies, CAPTCHA/anti-bot bypass, or invasive crawling are not accepted.
+Static site files live in `/docs`, matching the repository Pages source (`main:/docs`). The live UI prefers the newest generated JSON from `main` on `raw.githubusercontent.com`, with the deployed `/docs/generated` files as a fallback.
 
 ## Disclaimer
 
