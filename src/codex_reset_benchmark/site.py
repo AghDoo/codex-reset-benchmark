@@ -17,8 +17,15 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
     snapshots = load_snapshots(repo_root)
     sources = source_payload.get("sources", [])
     events = event_payload.get("events", [])
+    ground_truth_reviewed_at = parse_datetime(event_payload["reviewed_at"])
 
-    scoring = score_archive(snapshots, events, sources, as_of=now)
+    scoring = score_archive(
+        snapshots,
+        events,
+        sources,
+        as_of=now,
+        ground_truth_reviewed_at=ground_truth_reviewed_at,
+    )
     generated = repo_root / "docs" / "generated"
     leaderboard_payload = {
         key: scoring[key]
@@ -26,6 +33,7 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
             "schema_version",
             "methodology_version",
             "generated_at",
+            "ground_truth_reviewed_at",
             "checkpoint_hours_utc",
             "max_forecast_age_hours",
             "minimum_rank_samples",
@@ -38,6 +46,7 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
         "schema_version": 1,
         "methodology_version": scoring["methodology_version"],
         "generated_at": scoring["generated_at"],
+        "ground_truth_reviewed_at": scoring["ground_truth_reviewed_at"],
         "sources": {
             source_id: {
                 horizon: {"samples": metrics["samples"], "calibration": metrics["calibration"]}
@@ -78,6 +87,7 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
     latest_payload = {
         "schema_version": 1,
         "generated_at": isoformat_z(now),
+        "ground_truth_reviewed_at": scoring["ground_truth_reviewed_at"],
         "latest_confirmed_reset": confirmed_events[-1] if confirmed_events else None,
         "sources": latest_sources,
     }
@@ -97,6 +107,7 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
     write_json(generated / "meta.json", {
         "schema_version": 1,
         "generated_at": isoformat_z(now),
+        "ground_truth_reviewed_at": scoring["ground_truth_reviewed_at"],
         "methodology_version": scoring["methodology_version"],
         "snapshot_count": len(snapshots),
         "confirmed_event_count": len(confirmed_events),
