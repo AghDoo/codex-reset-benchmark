@@ -27,7 +27,9 @@ def isoformat_z(dt: datetime) -> str:
 
 
 def normalize_probability(value: Any, unit: str) -> float:
-    if isinstance(value, bool) or not isinstance(value, (int, float)):
+    if isinstance(value, bool):
+        raise ValueError(f"invalid probability value: {value!r}")
+    if not isinstance(value, (int, float)):
         try:
             value = float(value)
         except (TypeError, ValueError) as exc:
