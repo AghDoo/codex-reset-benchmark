@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14T13:48:04Z",
+  "generated_at": "2026-08-14T15:09:45Z",
   "schema_version": 1,
   "sources": [
     {
@@ -56,6 +56,17 @@
       "id": "willcodexquotareset",
       "name": "Will Codex Quota Reset",
       "url": "https://www.willcodexquotareset.com/"
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "kind": "public_api",
+        "notes": "The documented /api/v1/status endpoint exposes an optional active_watch with reset_chance_percent, forecast_window, observed_at, and expires_at. A null active_watch is a healthy idle state. Variable-window forecasts are archived as issued and are not mapped into V1 fixed-horizon rankings."
+      },
+      "enabled": true,
+      "id": "codex-resets-com",
+      "name": "Codex Resets",
+      "url": "https://codex-resets.com/"
     },
     {
       "access": {

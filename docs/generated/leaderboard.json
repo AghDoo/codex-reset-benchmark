@@ -22,7 +22,7 @@
     12,
     18
   ],
-  "generated_at": "2026-08-14T13:48:04Z",
+  "generated_at": "2026-08-14T15:09:45Z",
   "ground_truth_reviewed_at": "2026-08-13T13:30:00Z",
   "max_forecast_age_hours": {
     "24h": 6,
@@ -92,6 +92,18 @@
         "samples": 0,
         "source_id": "codexreset-today",
         "url": "https://codexreset.today/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Resets",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-resets-com",
+        "url": "https://codex-resets.com/"
       },
       {
         "availability": null,
@@ -197,6 +209,18 @@
         "eligible": false,
         "hit_rate": null,
         "log_loss": null,
+        "name": "Codex Resets",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-resets-com",
+        "url": "https://codex-resets.com/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
         "name": "SAINT TIBO",
         "rank": null,
         "samples": 0,
@@ -288,6 +312,18 @@
         "samples": 0,
         "source_id": "codexreset-today",
         "url": "https://codexreset.today/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Resets",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-resets-com",
+        "url": "https://codex-resets.com/"
       },
       {
         "availability": null,
