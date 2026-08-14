@@ -2,6 +2,8 @@
 
 English | [繁體中文](./README.zh-TW.md)
 
+**Live benchmark:** https://aghdoo.github.io/codex-reset-benchmark/
+
 Independent benchmark for tracking and comparing community Codex reset prediction accuracy.
 
 > **Status:** early public benchmark. Forecasts are archived as issued; ranking remains provisional until each horizon reaches the minimum resolved sample size.
