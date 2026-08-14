@@ -47,18 +47,41 @@ def normalize_probability(value: Any, unit: str) -> float:
     return round(number, 10)
 
 
-def stable_snapshot_id(source_id: str, observed_at: str, raw_sha256: str, forecasts: dict[str, float]) -> str:
+def stable_snapshot_id(
+    source_id: str,
+    observed_at: str,
+    raw_sha256: str,
+    forecasts: dict[str, float],
+    window_forecast: dict[str, Any] | None = None,
+) -> str:
     payload = json.dumps(
         {
             "source_id": source_id,
             "observed_at": observed_at,
             "raw_sha256": raw_sha256,
             "forecasts": forecasts,
+            "window_forecast": window_forecast,
         },
         sort_keys=True,
         separators=(",", ":"),
     ).encode("utf-8")
     return hashlib.sha256(payload).hexdigest()[:24]
+
+
+def validate_window_forecast(value: dict[str, Any]) -> None:
+    window = value.get("forecast_window")
+    if not isinstance(window, str) or not window.strip():
+        raise ValueError("window forecast requires forecast_window")
+    probability = value.get("probability")
+    if probability is not None:
+        normalize_probability(probability, "fraction")
+    observed_at = parse_datetime(value.get("observed_at"))
+    expires_at = parse_datetime(value.get("expires_at"))
+    if expires_at <= observed_at:
+        raise ValueError("window forecast expires_at must be after observed_at")
+    level = value.get("level")
+    if level is not None and (not isinstance(level, str) or not level):
+        raise ValueError("window forecast level must be a non-empty string")
 
 
 @dataclass(frozen=True)
@@ -72,6 +95,7 @@ class ForecastSnapshot:
     collector_type: str
     collector_version: str
     raw_sha256: str
+    window_forecast: dict[str, Any] | None = None
 
     def validate(self) -> None:
         if not self.source_id:
@@ -79,18 +103,20 @@ class ForecastSnapshot:
         parse_datetime(self.observed_at)
         if self.source_updated_at:
             parse_datetime(self.source_updated_at)
-        if not self.forecasts:
-            raise ValueError("at least one forecast horizon is required")
+        if not self.forecasts and self.window_forecast is None:
+            raise ValueError("at least one fixed-horizon or window forecast is required")
         for horizon, probability in self.forecasts.items():
             if horizon not in {"5h", "24h", "48h"}:
                 raise ValueError(f"unsupported horizon: {horizon}")
             normalize_probability(probability, "fraction")
+        if self.window_forecast is not None:
+            validate_window_forecast(self.window_forecast)
         if len(self.raw_sha256) != 64:
             raise ValueError("raw_sha256 must be a full SHA-256 hex digest")
 
     def to_dict(self) -> dict[str, Any]:
         self.validate()
-        return {
+        payload = {
             "schema_version": SCHEMA_VERSION,
             "snapshot_id": self.snapshot_id,
             "source_id": self.source_id,
@@ -102,3 +128,6 @@ class ForecastSnapshot:
             "collector_version": self.collector_version,
             "raw_sha256": self.raw_sha256,
         }
+        if self.window_forecast is not None:
+            payload["window_forecast"] = self.window_forecast
+        return payload
