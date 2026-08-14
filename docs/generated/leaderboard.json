@@ -1,1 +1,295 @@
-{"schema_version":1,"methodology_version":"1.0.0","generated_at":"2026-08-13T14:20:28Z","checkpoint_hours_utc":[0,6,12,18],"max_forecast_age_hours":{"5h":1,"24h":6,"48h":6},"minimum_rank_samples":10,"rankings":{"5h":[],"24h":[],"48h":[]},"baselines":{"5h":{"resolved_cases":0,"descriptive_event_rate":null,"descriptive_brier":null},"24h":{"resolved_cases":0,"descriptive_event_rate":null,"descriptive_brier":null},"48h":{"resolved_cases":0,"descriptive_event_rate":null,"descriptive_brier":null}}}
+{
+  "baselines": {
+    "24h": {
+      "descriptive_brier": null,
+      "descriptive_event_rate": null,
+      "resolved_cases": 0
+    },
+    "48h": {
+      "descriptive_brier": null,
+      "descriptive_event_rate": null,
+      "resolved_cases": 0
+    },
+    "5h": {
+      "descriptive_brier": null,
+      "descriptive_event_rate": null,
+      "resolved_cases": 0
+    }
+  },
+  "checkpoint_hours_utc": [
+    0,
+    6,
+    12,
+    18
+  ],
+  "generated_at": "2026-08-14T06:45:58Z",
+  "ground_truth_reviewed_at": "2026-08-13T13:30:00Z",
+  "max_forecast_age_hours": {
+    "24h": 6,
+    "48h": 6,
+    "5h": 1
+  },
+  "methodology_version": "1.0.0",
+  "minimum_rank_samples": 10,
+  "rankings": {
+    "24h": [
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Aki Codex Reset Radar",
+        "rank": null,
+        "samples": 0,
+        "source_id": "akiai-reset-radar",
+        "url": "https://akiai.cn/radar/en/index.html"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset / Tibo Radar",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-reset-com",
+        "url": "https://codex-reset.com/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset Monitor",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codexreset-org",
+        "url": "https://codexreset.org/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset Radar",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-reset-radar",
+        "url": "https://codexresetradar.com/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset Today",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codexreset-today",
+        "url": "https://codexreset.today/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "SAINT TIBO",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-tibo-codes",
+        "url": "https://codex-tibo.codes/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Will Codex Reset",
+        "rank": null,
+        "samples": 0,
+        "source_id": "willcodexreset",
+        "url": "https://willcodexreset.com/"
+      }
+    ],
+    "48h": [
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Aki Codex Reset Radar",
+        "rank": null,
+        "samples": 0,
+        "source_id": "akiai-reset-radar",
+        "url": "https://akiai.cn/radar/en/index.html"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset / Tibo Radar",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-reset-com",
+        "url": "https://codex-reset.com/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset Monitor",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codexreset-org",
+        "url": "https://codexreset.org/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset Radar",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-reset-radar",
+        "url": "https://codexresetradar.com/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset Today",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codexreset-today",
+        "url": "https://codexreset.today/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "SAINT TIBO",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-tibo-codes",
+        "url": "https://codex-tibo.codes/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Will Codex Reset",
+        "rank": null,
+        "samples": 0,
+        "source_id": "willcodexreset",
+        "url": "https://willcodexreset.com/"
+      }
+    ],
+    "5h": [
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Aki Codex Reset Radar",
+        "rank": null,
+        "samples": 0,
+        "source_id": "akiai-reset-radar",
+        "url": "https://akiai.cn/radar/en/index.html"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset / Tibo Radar",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-reset-com",
+        "url": "https://codex-reset.com/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset Monitor",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codexreset-org",
+        "url": "https://codexreset.org/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset Radar",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-reset-radar",
+        "url": "https://codexresetradar.com/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Codex Reset Today",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codexreset-today",
+        "url": "https://codexreset.today/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "SAINT TIBO",
+        "rank": null,
+        "samples": 0,
+        "source_id": "codex-tibo-codes",
+        "url": "https://codex-tibo.codes/"
+      },
+      {
+        "availability": null,
+        "brier": null,
+        "eligible": false,
+        "hit_rate": null,
+        "log_loss": null,
+        "name": "Will Codex Reset",
+        "rank": null,
+        "samples": 0,
+        "source_id": "willcodexreset",
+        "url": "https://willcodexreset.com/"
+      }
+    ]
+  },
+  "schema_version": 1
+}

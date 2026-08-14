@@ -1,1 +1,83 @@
-{"schema_version":1,"generated_at":"2026-08-13T14:20:28Z","sources":[]}
+{
+  "generated_at": "2026-08-14T06:45:58Z",
+  "schema_version": 1,
+  "sources": [
+    {
+      "access": {
+        "authentication": "none",
+        "kind": "public_api",
+        "notes": "The site publicly advertises /api/forecast."
+      },
+      "enabled": true,
+      "id": "codex-reset-com",
+      "name": "Codex Reset / Tibo Radar",
+      "url": "https://codex-reset.com/"
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "kind": "public_html",
+        "notes": "Server-rendered forecast values observed in public HTML."
+      },
+      "enabled": true,
+      "id": "codexreset-org",
+      "name": "Codex Reset Monitor",
+      "url": "https://codexreset.org/"
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "kind": "public_html",
+        "notes": "The public page currently exposes a deterministic 48h forecast."
+      },
+      "enabled": true,
+      "id": "codex-reset-radar",
+      "name": "Codex Reset Radar",
+      "url": "https://codexresetradar.com/"
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "kind": "public_html",
+        "notes": "The public page labels the headline probability as the next-24h likelihood."
+      },
+      "enabled": true,
+      "id": "codexreset-today",
+      "name": "Codex Reset Today",
+      "url": "https://codexreset.today/"
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "kind": "public_json",
+        "notes": "Registered but disabled because the observed current.json was stale during initial review."
+      },
+      "enabled": false,
+      "id": "akiai-reset-radar",
+      "name": "Aki Codex Reset Radar",
+      "url": "https://akiai.cn/radar/en/index.html"
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "kind": "public_html",
+        "notes": "Registered but disabled: server-rendered placeholders can show 0% while horizon values are still loading, so a stable data endpoint is required before scoring."
+      },
+      "enabled": false,
+      "id": "willcodexreset",
+      "name": "Will Codex Reset",
+      "url": "https://willcodexreset.com/"
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "kind": "public_html",
+        "notes": "The observed 94% item is presented as a meme/archive card rather than a clearly current machine-readable forecast."
+      },
+      "enabled": false,
+      "id": "codex-tibo-codes",
+      "name": "SAINT TIBO",
+      "url": "https://codex-tibo.codes/"
+    }
+  ]
+}
