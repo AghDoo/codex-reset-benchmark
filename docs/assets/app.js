@@ -6,8 +6,8 @@
   const dataBases = !isLocal && liveDataBase ? [liveDataBase, relativeDataBase] : [relativeDataBase];
   const locale = body.dataset.locale || "en";
   const t = {
-    en: { noData: "No archived forecast yet.", provisional: "provisional", eligible: "ranked", stale: "stale", live: "fresh", never: "not collected" },
-    "zh-TW": { noData: "尚未封存任何預測資料。", provisional: "暫定", eligible: "已納入排名", stale: "資料過舊", live: "新鮮", never: "尚未蒐集" }
+    en: { noData: "No archived forecast yet.", provisional: "provisional", eligible: "ranked", stale: "stale", live: "fresh", never: "not collected", window: "window" },
+    "zh-TW": { noData: "尚未封存任何預測資料。", provisional: "暫定", eligible: "已納入排名", stale: "資料過舊", live: "新鮮", never: "尚未蒐集", window: "區間" }
   }[locale];
   const fmtPct = value => value == null ? "—" : `${(value * 100).toFixed(value * 100 % 1 ? 1 : 0)}%`;
   const fmtNum = value => value == null ? "—" : Number(value).toFixed(4);
@@ -36,7 +36,16 @@
     if (!sourceTarget) return;
     sourceTarget.innerHTML = (payload.sources || []).filter(s => s.enabled).map(source => {
       const latest = source.latest;
-      const forecast = latest ? Object.entries(latest.forecasts).map(([h, p]) => `${h}: ${fmtPct(p)}`).join(" · ") : t.noData;
+      let forecast = t.noData;
+      if (latest) {
+        const windowForecast = latest.window_forecast;
+        if (windowForecast) {
+          forecast = `${t.window}: ${fmtPct(windowForecast.probability)} · ${esc(windowForecast.forecast_window)}`;
+        } else {
+          const fixed = Object.entries(latest.forecasts || {}).map(([h, p]) => `${h}: ${fmtPct(p)}`);
+          forecast = fixed.length ? fixed.join(" · ") : t.noData;
+        }
+      }
       const freshness = latest ? (source.stale ? t.stale : t.live) : t.never;
       return `<div class="card"><div class="source-row"><strong><a href="${esc(source.url)}" rel="noopener noreferrer">${esc(source.name)}</a></strong><span class="badge ${source.stale ? "warn" : latest ? "good" : ""}">${freshness}</span></div><div class="metric">${forecast}</div><div class="small muted">${latest ? esc(latest.observed_at) : "—"}</div></div>`;
     }).join("");

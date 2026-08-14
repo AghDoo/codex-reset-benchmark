@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-08-14T11:18:00Z",
+  "reviewed_at": "2026-08-14T14:31:43Z",
   "sources": [
     {
       "id": "codex-reset-com",
@@ -100,6 +100,28 @@
         "kind": "public_api",
         "authentication": "none",
         "notes": "The public client loads its 48-hour forecast from /api/forecast; raw homepage HTML may remain a loading placeholder."
+      }
+    },
+    {
+      "id": "codex-resets-com",
+      "name": "Codex Resets",
+      "url": "https://codex-resets.com/",
+      "forecast_url": "https://codex-resets.com/api/v1/status",
+      "enabled": true,
+      "collector": {
+        "type": "status_watch_json",
+        "respect_robots": true,
+        "watch_path": "data.active_watch",
+        "probability": {"path": "reset_chance_percent", "unit": "percent"},
+        "forecast_window_path": "forecast_window",
+        "observed_at_path": "observed_at",
+        "expires_at_path": "expires_at",
+        "level_path": "level"
+      },
+      "access": {
+        "kind": "public_api",
+        "authentication": "none",
+        "notes": "The documented /api/v1/status endpoint exposes an optional active_watch with reset_chance_percent, forecast_window, observed_at, and expires_at. A null active_watch is a healthy idle state. Variable-window forecasts are archived as issued and are not mapped into V1 fixed-horizon rankings."
       }
     },
     {

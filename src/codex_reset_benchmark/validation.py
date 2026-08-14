@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from .models import parse_datetime
+from .models import parse_datetime, validate_window_forecast
 from .storage import load_events, load_snapshots, load_sources
 
 
@@ -23,13 +23,20 @@ def validate_source_registry(payload: dict[str, Any]) -> list[str]:
         if not str(forecast_url).startswith("https://"):
             errors.append(f"{sid}: forecast URL must use HTTPS")
         collector = source.get("collector") or {}
-        if source.get("enabled") and collector.get("type") not in {"json_api", "html_regex"}:
+        collector_type = collector.get("type")
+        if source.get("enabled") and collector_type not in {"json_api", "html_regex", "status_watch_json"}:
             errors.append(f"{sid}: enabled source has unsupported collector")
         for horizon, rule in (collector.get("probabilities") or {}).items():
             if horizon not in {"5h", "24h", "48h"}:
                 errors.append(f"{sid}: unsupported V1 horizon {horizon}")
             if not isinstance(rule, dict):
                 errors.append(f"{sid}: invalid rule for {horizon}")
+        if collector_type == "status_watch_json":
+            for key in ("watch_path", "probability", "forecast_window_path", "observed_at_path", "expires_at_path"):
+                if key not in collector:
+                    errors.append(f"{sid}: status watch collector missing {key}")
+            if not isinstance(collector.get("probability"), dict):
+                errors.append(f"{sid}: invalid status watch probability rule")
     return errors
 
 
@@ -52,8 +59,9 @@ def validate_snapshot(snapshot: dict[str, Any], source_ids: set[str]) -> list[st
             errors.append(f"snapshot {snapshot['snapshot_id']}: observed_at is in the future")
     except ValueError as exc:
         errors.append(str(exc))
-    if not snapshot.get("forecasts"):
-        errors.append(f"snapshot {snapshot['snapshot_id']}: forecasts must not be empty")
+    window_forecast = snapshot.get("window_forecast")
+    if not snapshot.get("forecasts") and window_forecast is None:
+        errors.append(f"snapshot {snapshot['snapshot_id']}: fixed or window forecast is required")
     source_updated_at = snapshot.get("source_updated_at")
     if source_updated_at:
         try:
@@ -67,6 +75,14 @@ def validate_snapshot(snapshot: dict[str, Any], source_ids: set[str]) -> list[st
             errors.append(f"snapshot {snapshot['snapshot_id']}: invalid horizon {horizon}")
         if isinstance(probability, bool) or not isinstance(probability, (int, float)) or not 0 <= float(probability) <= 1:
             errors.append(f"snapshot {snapshot['snapshot_id']}: invalid probability {probability!r}")
+    if window_forecast is not None:
+        if not isinstance(window_forecast, dict):
+            errors.append(f"snapshot {snapshot['snapshot_id']}: invalid window_forecast")
+        else:
+            try:
+                validate_window_forecast(window_forecast)
+            except ValueError as exc:
+                errors.append(f"snapshot {snapshot['snapshot_id']}: {exc}")
     if not re.fullmatch(r"[0-9a-f]{64}", str(snapshot.get("raw_sha256", ""))):
         errors.append(f"snapshot {snapshot['snapshot_id']}: invalid raw_sha256")
     return errors

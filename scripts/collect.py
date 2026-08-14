@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 import json
 
-from codex_reset_benchmark.collectors import CollectorError, collect_source
+from codex_reset_benchmark.collectors import CollectorError, NoActiveForecast, collect_source
 from codex_reset_benchmark.http import AccessDenied, FetchError, HttpClient
 from codex_reset_benchmark.models import isoformat_z
 from codex_reset_benchmark.storage import append_snapshot, load_sources, write_json
@@ -29,13 +29,22 @@ def main() -> int:
             snapshot = collect_source(source, client, now=now)
             path, inserted = append_snapshot(ROOT, snapshot)
             added += int(inserted)
-            status["sources"][sid] = {
+            entry = {
                 "state": "ok",
                 "checked_at": isoformat_z(now),
                 "snapshot_id": snapshot.snapshot_id,
                 "archive_path": str(path.relative_to(ROOT)),
                 "inserted": inserted,
                 "forecasts": snapshot.forecasts,
+            }
+            if snapshot.window_forecast is not None:
+                entry["window_forecast"] = snapshot.window_forecast
+            status["sources"][sid] = entry
+        except NoActiveForecast as exc:
+            status["sources"][sid] = {
+                "state": "idle",
+                "checked_at": isoformat_z(now),
+                "note": str(exc)[:500],
             }
         except (CollectorError, FetchError, AccessDenied, ValueError) as exc:
             status["sources"][sid] = {
