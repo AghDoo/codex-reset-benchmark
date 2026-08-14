@@ -18,7 +18,7 @@ For each source and horizon, the latest snapshot observed at or before the check
 
 V1 scores 5-hour, 24-hour, and 48-hour probabilities separately. A source can participate in any subset of horizons. The initial source set currently exposes no reliable machine-readable 5h forecast, so the 5h leaderboard begins with zero samples but the schema and scoring path are active from V1.
 
-A case is resolved only after its full horizon has elapsed. This prevents a negative outcome from being scored prematurely.
+A case is resolved only after its full horizon has elapsed **and** the complete forecast window falls at or before the Ground Truth dataset's `reviewed_at` timestamp. This prevents unreviewed time from being silently scored as a negative outcome.
 
 ## Primary metric: Brier Score
 
@@ -46,7 +46,7 @@ No forecast is imputed. A missing, failed, stale, or unparsable source simply ha
 
 ## Ground truth
 
-`data/events/resets.json` is the reviewed scoring dataset. Events must include a public source URL, explicit scope, status, and review note. Ambiguous promises remain excluded until a completed event can be verified.
+`data/events/resets.json` is the reviewed scoring dataset. Its top-level `reviewed_at` timestamp is the latest instant through which the event history has been reviewed. Events must include a public source URL, explicit scope, status, and review note. Ambiguous promises remain excluded until a completed event can be verified.
 
 Corrections are non-destructive: a historical decision is superseded with an auditable correction rather than silently rewritten.
 
