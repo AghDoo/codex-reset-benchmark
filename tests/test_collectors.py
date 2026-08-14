@@ -41,6 +41,19 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(snapshot.forecasts, {"24h": 0.35, "48h": 0.55})
         self.assertEqual(snapshot.source_updated_at, "2026-08-13T14:00:00Z")
 
+    def test_json_api_rejects_boolean_probability(self) -> None:
+        source = {
+            "id": "json-source",
+            "enabled": True,
+            "forecast_url": "https://example.test/api",
+            "collector": {
+                "type": "json_api",
+                "probabilities": {"24h": {"path": "prob24h", "unit": "fraction"}},
+            },
+        }
+        with self.assertRaises(ValueError):
+            collect_source(source, FakeClient(json.dumps({"prob24h": True})), now=self.now)
+
     def test_html_regex_extracts_only_matching_horizons(self) -> None:
         source = {
             "id": "html-source",
