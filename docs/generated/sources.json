@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14T11:59:55Z",
+  "generated_at": "2026-08-14T13:48:04Z",
   "schema_version": 1,
   "sources": [
     {
@@ -28,7 +28,7 @@
       "access": {
         "authentication": "none",
         "kind": "public_html",
-        "notes": "The public page exposes a deterministic next-48h reset chance in visible text."
+        "notes": "The public page exposes a deterministic next-48h reset chance in visible text; whitespace before the percent sign is tolerated because SSR markup may split the token."
       },
       "enabled": true,
       "id": "codex-reset-radar",
@@ -45,6 +45,17 @@
       "id": "codexreset-today",
       "name": "Codex Reset Today",
       "url": "https://codexreset.today/"
+    },
+    {
+      "access": {
+        "authentication": "none",
+        "kind": "public_api",
+        "notes": "The public client loads its 48-hour forecast from /api/forecast; raw homepage HTML may remain a loading placeholder."
+      },
+      "enabled": true,
+      "id": "willcodexquotareset",
+      "name": "Will Codex Quota Reset",
+      "url": "https://www.willcodexquotareset.com/"
     },
     {
       "access": {
