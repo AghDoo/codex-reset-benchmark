@@ -1,6 +1,6 @@
 # Initial Source Inventory
 
-Reviewed 2026-08-13. The machine-readable registry is `data/sources.json`.
+Reviewed 2026-08-13; updated 2026-08-14. The machine-readable registry is `data/sources.json`.
 
 | Source | V1 state | Extraction | Horizons | Initial review note |
 |---|---|---|---|---|
@@ -8,6 +8,7 @@ Reviewed 2026-08-13. The machine-readable registry is `data/sources.json`.
 | codexreset.org | enabled | public HTML | 24h, 48h | server-rendered `Final forecast` values observed |
 | codexresetradar.com | enabled | public HTML | 48h | public deterministic 48h percentage observed |
 | codexreset.today | enabled | public HTML | 24h | headline probability explicitly labeled next-24h |
+| willcodexquotareset.com | enabled | public JSON API | 48h | public client loads `forecast.score` from `/api/forecast`; homepage HTML can remain a loading placeholder |
 | akiai.cn radar | disabled | public JSON | 24h, 48h | observed feed was stale during review |
 | willcodexreset.com | disabled | public HTML | unknown | SSR can expose placeholder 0% while horizon fields are loading; needs stable endpoint |
 | codex-tibo.codes | disabled | manual | n/a | observed 94% content is presented as a meme/archive card, not clearly a current forecast |
