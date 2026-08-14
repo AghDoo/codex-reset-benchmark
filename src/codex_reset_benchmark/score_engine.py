@@ -103,8 +103,17 @@ def score_archive(
     sources: list[dict[str, Any]],
     *,
     as_of: datetime | None = None,
+    ground_truth_reviewed_at: datetime | None = None,
 ) -> dict[str, Any]:
     as_of = (as_of or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    if ground_truth_reviewed_at is None:
+        ground_truth_reviewed_at = as_of
+    elif ground_truth_reviewed_at.tzinfo is None:
+        raise ValueError("ground_truth_reviewed_at must be timezone-aware")
+    else:
+        ground_truth_reviewed_at = ground_truth_reviewed_at.astimezone(timezone.utc)
+    resolution_as_of = min(as_of, ground_truth_reviewed_at)
+
     by_source: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for item in snapshots:
         by_source[item["source_id"]].append(item)
@@ -122,7 +131,7 @@ def score_archive(
         for horizon, delta in SUPPORTED_HORIZONS.items():
             horizon_snaps = [item for item in source_snaps if horizon in item.get("forecasts", {})]
             first_observed = parse_datetime(horizon_snaps[0]["observed_at"]) if horizon_snaps else as_of
-            resolution_cutoff = as_of - delta
+            resolution_cutoff = resolution_as_of - delta
             if first_observed > resolution_cutoff:
                 checkpoints: list[datetime] = []
             else:
@@ -187,6 +196,7 @@ def score_archive(
         "schema_version": 1,
         "methodology_version": "1.0.0",
         "generated_at": isoformat_z(as_of),
+        "ground_truth_reviewed_at": isoformat_z(ground_truth_reviewed_at),
         "checkpoint_hours_utc": list(CHECKPOINT_HOURS),
         "max_forecast_age_hours": {h: int(age.total_seconds() / 3600) for h, age in MAX_FORECAST_AGE.items()},
         "minimum_rank_samples": MIN_RANK_SAMPLES,
