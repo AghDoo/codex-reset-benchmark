@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-08-13T13:30:00Z",
+  "sources": [
+    {
+      "id": "codex-reset-com",
+      "name": "Codex Reset / Tibo Radar",
+      "url": "https://codex-reset.com/",
+      "forecast_url": "https://codex-reset.com/api/forecast",
+      "enabled": true,
+      "collector": {
+        "type": "json_api",
+        "respect_robots": true,
+        "probabilities": {
+          "24h": {"path": "probabilities.raw_24h", "unit": "fraction"},
+          "48h": {"path": "probabilities.raw_48h", "unit": "fraction"}
+        },
+        "source_updated_path": "updated_at"
+      },
+      "access": {
+        "kind": "public_api",
+        "authentication": "none",
+        "notes": "The site publicly advertises /api/forecast."
+      }
+    },
+    {
+      "id": "codexreset-org",
+      "name": "Codex Reset Monitor",
+      "url": "https://codexreset.org/",
+      "forecast_url": "https://codexreset.org/",
+      "enabled": true,
+      "collector": {
+        "type": "html_regex",
+        "respect_robots": true,
+        "probabilities": {
+          "24h": {"pattern": "24\\s*hours[\\s\\S]{0,120}?Final\\s*forecast:\\s*([0-9]+(?:\\.[0-9]+)?)%", "unit": "percent"},
+          "48h": {"pattern": "48\\s*hours[\\s\\S]{0,120}?Final\\s*forecast:\\s*([0-9]+(?:\\.[0-9]+)?)%", "unit": "percent"}
+        }
+      },
+      "access": {
+        "kind": "public_html",
+        "authentication": "none",
+        "notes": "Server-rendered forecast values observed in public HTML."
+      }
+    },
+    {
+      "id": "codex-reset-radar",
+      "name": "Codex Reset Radar",
+      "url": "https://codexresetradar.com/",
+      "forecast_url": "https://codexresetradar.com/",
+      "enabled": true,
+      "collector": {
+        "type": "html_regex",
+        "respect_robots": true,
+        "probabilities": {
+          "48h": {"pattern": "Next\\s*48\\s*hours\\s*([0-9]+(?:\\.[0-9]+)?)%", "unit": "percent"}
+        }
+      },
+      "access": {
+        "kind": "public_html",
+        "authentication": "none",
+        "notes": "The public page currently exposes a deterministic 48h forecast."
+      }
+    },
+    {
+      "id": "codexreset-today",
+      "name": "Codex Reset Today",
+      "url": "https://codexreset.today/",
+      "forecast_url": "https://codexreset.today/",
+      "enabled": true,
+      "collector": {
+        "type": "html_regex",
+        "respect_robots": true,
+        "probabilities": {
+          "24h": {"pattern": "Reset\\s*probability\\s*([0-9]+(?:\\.[0-9]+)?)%[\\s\\S]{0,180}?Next\\s*24h", "unit": "percent"}
+        }
+      },
+      "access": {
+        "kind": "public_html",
+        "authentication": "none",
+        "notes": "The public page labels the headline probability as the next-24h likelihood."
+      }
+    },
+    {
+      "id": "akiai-reset-radar",
+      "name": "Aki Codex Reset Radar",
+      "url": "https://akiai.cn/radar/en/index.html",
+      "forecast_url": "https://akiai.cn/radar/current.json",
+      "enabled": false,
+      "collector": {
+        "type": "json_api",
+        "respect_robots": true,
+        "probabilities": {
+          "24h": {"path": "prob24h", "unit": "percent_or_fraction"},
+          "48h": {"path": "prob48h", "unit": "percent_or_fraction"}
+        },
+        "source_updated_path": "generatedAt",
+        "max_source_age_hours": 24
+      },
+      "access": {
+        "kind": "public_json",
+        "authentication": "none",
+        "notes": "Registered but disabled because the observed current.json was stale during initial review."
+      }
+    },
+    {
+      "id": "willcodexreset",
+      "name": "Will Codex Reset",
+      "url": "https://willcodexreset.com/",
+      "forecast_url": "https://willcodexreset.com/",
+      "enabled": false,
+      "collector": {
+        "type": "html_regex",
+        "respect_robots": true,
+        "probabilities": {}
+      },
+      "access": {
+        "kind": "public_html",
+        "authentication": "none",
+        "notes": "Registered but disabled: server-rendered placeholders can show 0% while horizon values are still loading, so a stable data endpoint is required before scoring."
+      }
+    },
+    {
+      "id": "codex-tibo-codes",
+      "name": "SAINT TIBO",
+      "url": "https://codex-tibo.codes/",
+      "forecast_url": "https://codex-tibo.codes/",
+      "enabled": false,
+      "collector": {"type": "manual", "respect_robots": true, "probabilities": {}},
+      "access": {
+        "kind": "public_html",
+        "authentication": "none",
+        "notes": "The observed 94% item is presented as a meme/archive card rather than a clearly current machine-readable forecast."
+      }
+    }
+  ]
+}
