@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14T06:45:58Z",
+  "generated_at": "2026-08-14T08:40:09Z",
   "ground_truth_reviewed_at": "2026-08-13T13:30:00Z",
   "latest_confirmed_reset": {
     "announced_at": "2026-08-08T20:29:22Z",
@@ -27,12 +27,12 @@
           "24h": 0.2944610529,
           "48h": 0.5022147941
         },
-        "observed_at": "2026-08-14T06:45:56Z",
-        "raw_sha256": "be627668c016734a76a61f92f2ac65dd4e20bc48f006fa85c1a9814ed2a8191f",
+        "observed_at": "2026-08-14T08:40:05Z",
+        "raw_sha256": "e8584003800ef0517623c8144af795e8a35e08c92472635de2492a5a2ff17390",
         "schema_version": 1,
-        "snapshot_id": "cb9163879ab9095fdb5b961c",
+        "snapshot_id": "3c715060525c45758dd604d3",
         "source_id": "codex-reset-com",
-        "source_updated_at": "2026-08-14T06:45:56Z",
+        "source_updated_at": "2026-08-14T08:40:05Z",
         "source_url": "https://codex-reset.com/api/forecast"
       },
       "name": "Codex Reset / Tibo Radar",
