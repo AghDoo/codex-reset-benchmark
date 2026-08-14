@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from html.parser import HTMLParser
 import hashlib
 import json
 import re
@@ -19,6 +20,42 @@ from .models import (
 
 class CollectorError(RuntimeError):
     pass
+
+
+class _VisibleTextParser(HTMLParser):
+    """Extract human-visible text while ignoring script/style/template payloads."""
+
+    _HIDDEN_TAGS = {"script", "style", "noscript", "template"}
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self._hidden_depth = 0
+        self._parts: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.lower() in self._HIDDEN_TAGS:
+            self._hidden_depth += 1
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() in self._HIDDEN_TAGS and self._hidden_depth:
+            self._hidden_depth -= 1
+
+    def handle_data(self, data: str) -> None:
+        if not self._hidden_depth and data.strip():
+            self._parts.append(data)
+
+    def text(self) -> str:
+        return " ".join(" ".join(self._parts).split())
+
+
+def _visible_html_text(raw: str) -> str:
+    parser = _VisibleTextParser()
+    try:
+        parser.feed(raw)
+        parser.close()
+    except Exception as exc:
+        raise CollectorError("source HTML could not be normalized") from exc
+    return parser.text()
 
 
 def nested_get(payload: Any, dotted_path: str) -> Any:
@@ -73,8 +110,9 @@ def collect_source(source: dict[str, Any], client: HttpClient, now: datetime | N
             if value is not None:
                 source_updated_at = isoformat_z(parse_datetime(str(value)))
     else:
+        visible_text = _visible_html_text(raw)
         for horizon, rule in (config.get("probabilities") or {}).items():
-            match = re.search(rule["pattern"], raw, flags=re.IGNORECASE | re.DOTALL)
+            match = re.search(rule["pattern"], visible_text, flags=re.IGNORECASE | re.DOTALL)
             if not match:
                 continue
             forecasts[horizon] = normalize_probability(match.group(1), rule.get("unit", "percent"))

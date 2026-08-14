@@ -2,10 +2,14 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import json
+from pathlib import Path
 import unittest
 
 from codex_reset_benchmark.collectors import CollectorError, collect_source
 from codex_reset_benchmark.http import HttpResponse
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class FakeClient:
@@ -70,6 +74,49 @@ class CollectorTests(unittest.TestCase):
         body = "24 hours <span>Final forecast: 78%</span> 48 hours <span>Final forecast: 84%</span>"
         snapshot = collect_source(source, FakeClient(body), now=self.now)
         self.assertEqual(snapshot.forecasts, {"24h": 0.78, "48h": 0.84})
+
+    def test_html_regex_uses_visible_text_and_ignores_script_placeholders(self) -> None:
+        source = {
+            "id": "html-source",
+            "enabled": True,
+            "forecast_url": "https://example.test/",
+            "collector": {
+                "type": "html_regex",
+                "probabilities": {
+                    "24h": {"pattern": r"Reset\s*probability\s*([0-9.]+)%.*?Next\s*24\s*(?:h|hours?)", "unit": "percent"},
+                },
+            },
+        }
+        body = """
+        <script>Reset probability 0% Next 24h</script>
+        <section><h2>Reset <em>probability</em></h2><strong>40%</strong></section>
+        <div>Cooldown watch · <span>Next <b>24h</b> public-signal likelihood</span></div>
+        """
+        snapshot = collect_source(source, FakeClient(body), now=self.now)
+        self.assertEqual(snapshot.forecasts, {"24h": 0.4})
+
+    def test_registered_html_sources_match_current_visible_copy(self) -> None:
+        registry = json.loads((ROOT / "data" / "sources.json").read_text(encoding="utf-8"))
+        sources = {source["id"]: source for source in registry["sources"]}
+        cases = {
+            "codexreset-org": (
+                "<div>24 hours <span>0%</span><b>Final forecast: 78%</b></div>"
+                "<div>48 hours <span>0%</span><b>Final forecast: 84%</b></div>",
+                {"24h": 0.78, "48h": 0.84},
+            ),
+            "codex-reset-radar": (
+                "<div>Next <span>48h</span> reset chance <strong>34%</strong> WATCH · auto-updated</div>",
+                {"48h": 0.34},
+            ),
+            "codexreset-today": (
+                "<h2>Reset probability</h2><strong>40%</strong><div>Cooldown watch · Next 24h public-signal likelihood</div>",
+                {"24h": 0.4},
+            ),
+        }
+        for source_id, (body, expected) in cases.items():
+            with self.subTest(source_id=source_id):
+                snapshot = collect_source(sources[source_id], FakeClient(body, sources[source_id]["forecast_url"]), now=self.now)
+                self.assertEqual(snapshot.forecasts, expected)
 
     def test_placeholder_without_horizon_is_not_archived(self) -> None:
         source = {
