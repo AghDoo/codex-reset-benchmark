@@ -71,7 +71,11 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
         stale = None
         if latest:
             age_hours = (now - parse_datetime(latest["observed_at"])).total_seconds() / 3600
-            stale = age_hours > 2.5
+            window_forecast = latest.get("window_forecast")
+            if isinstance(window_forecast, dict) and window_forecast.get("expires_at"):
+                stale = now >= parse_datetime(window_forecast["expires_at"])
+            else:
+                stale = age_hours > 2.5
         latest_sources.append({
             "id": source["id"],
             "name": source["name"],
