@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14T10:26:34Z",
+  "generated_at": "2026-08-14T11:59:55Z",
   "schema_version": 1,
   "sources": [
     {
@@ -17,7 +17,7 @@
       "access": {
         "authentication": "none",
         "kind": "public_html",
-        "notes": "Server-rendered forecast values observed in public HTML."
+        "notes": "Server-rendered forecast values are extracted from normalized visible text, not raw markup."
       },
       "enabled": true,
       "id": "codexreset-org",
@@ -28,7 +28,7 @@
       "access": {
         "authentication": "none",
         "kind": "public_html",
-        "notes": "The public page currently exposes a deterministic 48h forecast."
+        "notes": "The public page exposes a deterministic next-48h reset chance in visible text."
       },
       "enabled": true,
       "id": "codex-reset-radar",
@@ -39,7 +39,7 @@
       "access": {
         "authentication": "none",
         "kind": "public_html",
-        "notes": "The public page labels the headline probability as the next-24h likelihood."
+        "notes": "The headline Reset probability is paired with the visible next-24h public-signal label."
       },
       "enabled": true,
       "id": "codexreset-today",

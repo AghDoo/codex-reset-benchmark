@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14T10:26:34Z",
+  "generated_at": "2026-08-14T11:59:55Z",
   "ground_truth_reviewed_at": "2026-08-13T13:30:00Z",
   "latest_confirmed_reset": {
     "announced_at": "2026-08-08T20:29:22Z",
@@ -27,12 +27,12 @@
           "24h": 0.2944610529,
           "48h": 0.5022147941
         },
-        "observed_at": "2026-08-14T10:26:31Z",
-        "raw_sha256": "0bca06cacd39d0867c2c32ac8dc876cd072cdb52aa377e8184b5ca78f69952da",
+        "observed_at": "2026-08-14T11:59:52Z",
+        "raw_sha256": "5d57f3a70e9bcb21dcd2219506faccf32cda95ac54257d57eaecbd76facab601",
         "schema_version": 1,
-        "snapshot_id": "82d2c583df00ee8435bcc0b8",
+        "snapshot_id": "5518f9709992c3527ad34c74",
         "source_id": "codex-reset-com",
-        "source_updated_at": "2026-08-14T10:26:31Z",
+        "source_updated_at": "2026-08-14T11:59:52Z",
         "source_url": "https://codex-reset.com/api/forecast"
       },
       "name": "Codex Reset / Tibo Radar",
@@ -40,12 +40,26 @@
       "url": "https://codex-reset.com/"
     },
     {
-      "age_hours": null,
+      "age_hours": 0.0,
       "enabled": true,
       "id": "codexreset-org",
-      "latest": null,
+      "latest": {
+        "collector_type": "html_regex",
+        "collector_version": "1",
+        "forecasts": {
+          "24h": 0.17,
+          "48h": 0.32
+        },
+        "observed_at": "2026-08-14T11:59:52Z",
+        "raw_sha256": "208b526f9282a616293093693cbae47ae392329abdf77616b5070095a107789c",
+        "schema_version": 1,
+        "snapshot_id": "a0615864a031cebbccfe477c",
+        "source_id": "codexreset-org",
+        "source_updated_at": null,
+        "source_url": "https://codexreset.org/"
+      },
       "name": "Codex Reset Monitor",
-      "stale": null,
+      "stale": false,
       "url": "https://codexreset.org/"
     },
     {
@@ -58,12 +72,25 @@
       "url": "https://codexresetradar.com/"
     },
     {
-      "age_hours": null,
+      "age_hours": 0.0,
       "enabled": true,
       "id": "codexreset-today",
-      "latest": null,
+      "latest": {
+        "collector_type": "html_regex",
+        "collector_version": "1",
+        "forecasts": {
+          "24h": 0.4
+        },
+        "observed_at": "2026-08-14T11:59:52Z",
+        "raw_sha256": "56cd7efd0e3079d56a341fd144fdc2035a49d501d14181e80a0a71ff786214ec",
+        "schema_version": 1,
+        "snapshot_id": "916c5c2efbc21605029dec9c",
+        "source_id": "codexreset-today",
+        "source_updated_at": null,
+        "source_url": "https://codexreset.today/"
+      },
       "name": "Codex Reset Today",
-      "stale": null,
+      "stale": false,
       "url": "https://codexreset.today/"
     },
     {

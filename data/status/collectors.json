@@ -2,43 +2,54 @@
   "schema_version": 1,
   "sources": {
     "akiai-reset-radar": {
-      "checked_at": "2026-08-14T10:26:31Z",
+      "checked_at": "2026-08-14T11:59:52Z",
       "state": "disabled"
     },
     "codex-reset-com": {
       "archive_path": "data/forecasts/2026/08/14.ndjson",
-      "checked_at": "2026-08-14T10:26:31Z",
+      "checked_at": "2026-08-14T11:59:52Z",
       "forecasts": {
         "24h": 0.2944610529,
         "48h": 0.5022147941
       },
       "inserted": true,
-      "snapshot_id": "82d2c583df00ee8435bcc0b8",
+      "snapshot_id": "5518f9709992c3527ad34c74",
       "state": "ok"
     },
     "codex-reset-radar": {
-      "checked_at": "2026-08-14T10:26:31Z",
+      "checked_at": "2026-08-14T11:59:52Z",
       "error": "no forecast values were extracted; placeholders are not archived",
       "state": "error"
     },
     "codex-tibo-codes": {
-      "checked_at": "2026-08-14T10:26:31Z",
+      "checked_at": "2026-08-14T11:59:52Z",
       "state": "disabled"
     },
     "codexreset-org": {
-      "checked_at": "2026-08-14T10:26:31Z",
-      "error": "no forecast values were extracted; placeholders are not archived",
-      "state": "error"
+      "archive_path": "data/forecasts/2026/08/14.ndjson",
+      "checked_at": "2026-08-14T11:59:52Z",
+      "forecasts": {
+        "24h": 0.17,
+        "48h": 0.32
+      },
+      "inserted": true,
+      "snapshot_id": "a0615864a031cebbccfe477c",
+      "state": "ok"
     },
     "codexreset-today": {
-      "checked_at": "2026-08-14T10:26:31Z",
-      "error": "no forecast values were extracted; placeholders are not archived",
-      "state": "error"
+      "archive_path": "data/forecasts/2026/08/14.ndjson",
+      "checked_at": "2026-08-14T11:59:52Z",
+      "forecasts": {
+        "24h": 0.4
+      },
+      "inserted": true,
+      "snapshot_id": "916c5c2efbc21605029dec9c",
+      "state": "ok"
     },
     "willcodexreset": {
-      "checked_at": "2026-08-14T10:26:31Z",
+      "checked_at": "2026-08-14T11:59:52Z",
       "state": "disabled"
     }
   },
-  "updated_at": "2026-08-14T10:26:31Z"
+  "updated_at": "2026-08-14T11:59:52Z"
 }
