@@ -71,6 +71,23 @@ class ScoringTests(unittest.TestCase):
         self.assertEqual(cases[0]["outcome"], 1)
         self.assertAlmostEqual(result["sources"]["a"]["5h"]["brier"], 0.09, places=6)
 
+    def test_ground_truth_review_time_bounds_resolution(self) -> None:
+        sources = [{"id": "a", "name": "A", "url": "https://a.test", "enabled": True}]
+        snapshots = [
+            {"snapshot_id": "s1", "source_id": "a", "observed_at": "2026-08-01T00:00:00Z", "forecasts": {"24h": 0.5}},
+            {"snapshot_id": "s2", "source_id": "a", "observed_at": "2026-08-01T06:00:00Z", "forecasts": {"24h": 0.5}},
+        ]
+        result = score_archive(
+            snapshots,
+            [],
+            sources,
+            as_of=datetime(2026, 8, 4, 0, 0, tzinfo=timezone.utc),
+            ground_truth_reviewed_at=datetime(2026, 8, 2, 0, 0, tzinfo=timezone.utc),
+        )
+        checkpoints = [case["checkpoint"] for case in result["sources"]["a"]["24h"]["cases"]]
+        self.assertEqual(checkpoints, ["2026-08-01T00:00:00Z"])
+        self.assertEqual(result["ground_truth_reviewed_at"], "2026-08-02T00:00:00Z")
+
 
 if __name__ == "__main__":
     unittest.main()
