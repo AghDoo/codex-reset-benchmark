@@ -1,16 +1,21 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 import re
 import unittest
 
-from codex_reset_benchmark.collectors import _visible_html_text
+from codex_reset_benchmark.collectors import _visible_html_text, collect_source
 from codex_reset_benchmark.http import HttpClient
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class LiveRadarDiagnostic(unittest.TestCase):
     def test_dump_sanitized_radar_structure(self) -> None:
-        response = HttpClient().get("https://codexresetradar.com/", respect_robots=True)
+        client = HttpClient()
+        response = client.get("https://codexresetradar.com/", respect_robots=True)
         raw = response.text
         visible = _visible_html_text(raw)
 
@@ -34,17 +39,19 @@ class LiveRadarDiagnostic(unittest.TestCase):
             "visible_len": len(visible),
             "raw_has_next_48h": "next 48h" in raw.lower(),
             "raw_has_reset_chance": "reset chance" in raw.lower(),
-            "raw_has_next_f": "__next_f" in raw.lower(),
             "visible_has_next_48h": "next 48h" in visible.lower(),
             "visible_has_reset_chance": "reset chance" in visible.lower(),
             "raw_percent_tokens": re.findall(r"\b\d{1,3}%", raw)[:20],
-            "visible_percent_tokens": re.findall(r"\b\d{1,3}%", visible)[:20],
-            "raw_48_snippets": snippets(raw, "48"),
+            "visible_percent_tokens": re.findall(r"\b\d{1,3}\s*%", visible)[:20],
             "visible_48_snippets": snippets(visible, "48"),
-            "raw_chance_snippets": snippets(raw, "chance"),
         }
         print("RADAR_DIAGNOSTIC=" + json.dumps(payload, ensure_ascii=False))
-        self.assertEqual(response.status, 200)
+
+        registry = json.loads((ROOT / "data" / "sources.json").read_text(encoding="utf-8"))
+        source = next(item for item in registry["sources"] if item["id"] == "codex-reset-radar")
+        snapshot = collect_source(source, client)
+        print("RADAR_FORECAST=" + json.dumps(snapshot.forecasts, sort_keys=True))
+        self.assertIn("48h", snapshot.forecasts)
 
 
 if __name__ == "__main__":
