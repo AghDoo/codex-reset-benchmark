@@ -105,7 +105,7 @@ class CollectorTests(unittest.TestCase):
                 {"24h": 0.78, "48h": 0.84},
             ),
             "codex-reset-radar": (
-                "<div>Next <span>48h</span> reset chance <strong>34%</strong> WATCH · auto-updated</div>",
+                "<div>Next <span>48h</span> reset chance <strong>34<!-- -->%</strong> WATCH · auto-updated</div>",
                 {"48h": 0.34},
             ),
             "codexreset-today": (
