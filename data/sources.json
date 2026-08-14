@@ -82,6 +82,27 @@
       }
     },
     {
+      "id": "willcodexquotareset",
+      "name": "Will Codex Quota Reset",
+      "url": "https://www.willcodexquotareset.com/",
+      "forecast_url": "https://www.willcodexquotareset.com/api/forecast",
+      "enabled": true,
+      "collector": {
+        "type": "json_api",
+        "respect_robots": true,
+        "probabilities": {
+          "48h": {"path": "forecast.score", "unit": "percent"}
+        },
+        "source_updated_path": "fetchedAt",
+        "max_source_age_hours": 6
+      },
+      "access": {
+        "kind": "public_api",
+        "authentication": "none",
+        "notes": "The public client loads its 48-hour forecast from /api/forecast; raw homepage HTML may remain a loading placeholder."
+      }
+    },
+    {
       "id": "akiai-reset-radar",
       "name": "Aki Codex Reset Radar",
       "url": "https://akiai.cn/radar/en/index.html",
