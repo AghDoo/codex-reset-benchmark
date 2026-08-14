@@ -58,6 +58,14 @@ class CollectorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             collect_source(source, FakeClient(json.dumps({"prob24h": True})), now=self.now)
 
+    def test_registered_willquota_json_source_schema(self) -> None:
+        registry = json.loads((ROOT / "data" / "sources.json").read_text(encoding="utf-8"))
+        source = next(item for item in registry["sources"] if item["id"] == "willcodexquotareset")
+        body = json.dumps({"fetchedAt": "2026-08-13T14:00:00Z", "forecast": {"score": 34}})
+        snapshot = collect_source(source, FakeClient(body, source["forecast_url"]), now=self.now)
+        self.assertEqual(snapshot.forecasts, {"48h": 0.34})
+        self.assertEqual(snapshot.source_updated_at, "2026-08-13T14:00:00Z")
+
     def test_html_regex_extracts_only_matching_horizons(self) -> None:
         source = {
             "id": "html-source",
