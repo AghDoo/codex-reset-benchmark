@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import unittest
 
-from codex_reset_benchmark.collectors import CollectorError, collect_source
+from codex_reset_benchmark.collectors import CollectorError, NoActiveForecast, collect_source
 from codex_reset_benchmark.http import HttpResponse
 
 
@@ -65,6 +65,41 @@ class CollectorTests(unittest.TestCase):
         snapshot = collect_source(source, FakeClient(body, source["forecast_url"]), now=self.now)
         self.assertEqual(snapshot.forecasts, {"48h": 0.34})
         self.assertEqual(snapshot.source_updated_at, "2026-08-13T14:00:00Z")
+
+    def test_registered_codex_resets_watch_schema(self) -> None:
+        registry = json.loads((ROOT / "data" / "sources.json").read_text(encoding="utf-8"))
+        source = next(item for item in registry["sources"] if item["id"] == "codex-resets-com")
+        body = json.dumps({
+            "data": {
+                "active_watch": {
+                    "level": "strong",
+                    "reset_chance_percent": 70,
+                    "forecast_window": "by end of Thursday",
+                    "observed_at": "2026-08-13T13:30:00Z",
+                    "expires_at": "2026-08-14T23:59:59Z",
+                    "text": "public signal",
+                    "source": {"type": "x_post", "author": "thsottiaux", "url": "https://x.com/thsottiaux/status/1"},
+                }
+            },
+            "meta": {"api_version": "v1", "generated_at": "2026-08-13T14:17:00Z"},
+        })
+        snapshot = collect_source(source, FakeClient(body, source["forecast_url"]), now=self.now)
+        self.assertEqual(snapshot.forecasts, {})
+        self.assertEqual(snapshot.source_updated_at, "2026-08-13T13:30:00Z")
+        self.assertEqual(snapshot.window_forecast, {
+            "probability": 0.7,
+            "forecast_window": "by end of Thursday",
+            "observed_at": "2026-08-13T13:30:00Z",
+            "expires_at": "2026-08-14T23:59:59Z",
+            "level": "strong",
+        })
+
+    def test_codex_resets_without_active_watch_is_idle(self) -> None:
+        registry = json.loads((ROOT / "data" / "sources.json").read_text(encoding="utf-8"))
+        source = next(item for item in registry["sources"] if item["id"] == "codex-resets-com")
+        body = json.dumps({"data": {"active_watch": None}, "meta": {"api_version": "v1", "generated_at": "2026-08-13T14:17:00Z"}})
+        with self.assertRaises(NoActiveForecast):
+            collect_source(source, FakeClient(body, source["forecast_url"]), now=self.now)
 
     def test_html_regex_extracts_only_matching_horizons(self) -> None:
         source = {
