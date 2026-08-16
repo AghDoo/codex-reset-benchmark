@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-08-14T14:31:43Z",
+  "reviewed_at": "2026-08-16T14:05:47Z",
   "sources": [
     {
       "id": "codex-reset-com",
@@ -32,6 +32,7 @@
       "collector": {
         "type": "html_regex",
         "respect_robots": true,
+        "max_response_bytes": 1500000,
         "probabilities": {
           "24h": {"pattern": "24\\s*hours.*?Final\\s*forecast:\\s*([0-9]+(?:\\.[0-9]+)?)%", "unit": "percent"},
           "48h": {"pattern": "48\\s*hours.*?Final\\s*forecast:\\s*([0-9]+(?:\\.[0-9]+)?)%", "unit": "percent"}
@@ -40,7 +41,7 @@
       "access": {
         "kind": "public_html",
         "authentication": "none",
-        "notes": "Server-rendered forecast values are extracted from normalized visible text, not raw markup."
+        "notes": "Server-rendered forecast values are extracted from normalized visible text. The page grew slightly beyond the global 1 MB fetch cap, so this source alone has a 1.5 MB response limit; no smaller public forecast endpoint was found during the 2026-08-16 review."
       }
     },
     {
@@ -160,7 +161,7 @@
       "access": {
         "kind": "public_html",
         "authentication": "none",
-        "notes": "Registered but disabled: server-rendered placeholders can show 0% while horizon values are still loading, so a stable data endpoint is required before scoring."
+        "notes": "Registered but disabled: server-rendered placeholders can show 0% while horizon fields are loading, so a stable data endpoint is required before scoring."
       }
     },
     {
