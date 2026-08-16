@@ -29,7 +29,10 @@ class HttpClient:
         self.timeout = timeout
         self.max_bytes = max_bytes
 
-    def _request(self, url: str) -> HttpResponse:
+    def _request(self, url: str, *, max_bytes: int | None = None) -> HttpResponse:
+        limit = self.max_bytes if max_bytes is None else max_bytes
+        if isinstance(limit, bool) or not isinstance(limit, int) or limit <= 0:
+            raise ValueError("max_bytes must be a positive integer")
         request = Request(
             url,
             headers={
@@ -41,9 +44,9 @@ class HttpClient:
         try:
             with urlopen(request, timeout=self.timeout) as response:  # noqa: S310 - public configured URLs only
                 status = int(getattr(response, "status", 200))
-                data = response.read(self.max_bytes + 1)
-                if len(data) > self.max_bytes:
-                    raise FetchError(f"response exceeds {self.max_bytes} bytes")
+                data = response.read(limit + 1)
+                if len(data) > limit:
+                    raise FetchError(f"response exceeds {limit} bytes")
                 charset = response.headers.get_content_charset() or "utf-8"
                 return HttpResponse(response.geturl(), status, data.decode(charset, errors="replace"))
         except HTTPError as exc:
@@ -74,7 +77,7 @@ class HttpClient:
         parser.parse(data.splitlines())
         return parser.can_fetch(USER_AGENT, url)
 
-    def get(self, url: str, *, respect_robots: bool = True) -> HttpResponse:
+    def get(self, url: str, *, respect_robots: bool = True, max_bytes: int | None = None) -> HttpResponse:
         if respect_robots and not self.robots_allowed(url):
             raise AccessDenied(f"robots.txt disallows collection of {url}")
-        return self._request(url)
+        return self._request(url, max_bytes=max_bytes)
