@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-16T13:47:21Z",
+  "generated_at": "2026-08-16T14:42:19Z",
   "ground_truth_reviewed_at": "2026-08-13T13:30:00Z",
   "latest_confirmed_reset": {
     "announced_at": "2026-08-08T20:29:22Z",
@@ -27,12 +27,12 @@
           "24h": 0.2944610529,
           "48h": 0.5022147941
         },
-        "observed_at": "2026-08-16T13:47:16Z",
-        "raw_sha256": "e6d6569e2c7dfde0bc7e7347ed2804057943e48dcbc6fceb518fe446c7dcbe65",
+        "observed_at": "2026-08-16T14:42:14Z",
+        "raw_sha256": "ab84e82e6430ef8c173a795b538530ddb6070c4191b1f602e1c7acc628403ed6",
         "schema_version": 1,
-        "snapshot_id": "88ed1b06f946248760f7f9c1",
+        "snapshot_id": "ee987314a410a0547208d37a",
         "source_id": "codex-reset-com",
-        "source_updated_at": "2026-08-16T13:47:16Z",
+        "source_updated_at": "2026-08-16T14:42:15Z",
         "source_url": "https://codex-reset.com/api/forecast"
       },
       "name": "Codex Reset / Tibo Radar",
@@ -40,26 +40,26 @@
       "url": "https://codex-reset.com/"
     },
     {
-      "age_hours": 8.92,
+      "age_hours": 0.0,
       "enabled": true,
       "id": "codexreset-org",
       "latest": {
         "collector_type": "html_regex",
         "collector_version": "1",
         "forecasts": {
-          "24h": 0.18,
-          "48h": 0.34
+          "24h": 0.19,
+          "48h": 0.35
         },
-        "observed_at": "2026-08-16T04:52:11Z",
-        "raw_sha256": "01fd7e41e9faca566e8a4b005bd6df768d663369c2633beb9e7edc3460cf8542",
+        "observed_at": "2026-08-16T14:42:14Z",
+        "raw_sha256": "32e26463be09a342f49852805eab1d54a1cfc503de52810e71d23e5a80279d80",
         "schema_version": 1,
-        "snapshot_id": "7fffeebe63e5a37290425720",
+        "snapshot_id": "440606402839507ce8184e92",
         "source_id": "codexreset-org",
         "source_updated_at": null,
         "source_url": "https://codexreset.org/"
       },
       "name": "Codex Reset Monitor",
-      "stale": true,
+      "stale": false,
       "url": "https://codexreset.org/"
     },
     {
@@ -72,10 +72,10 @@
         "forecasts": {
           "48h": 0.45
         },
-        "observed_at": "2026-08-16T13:47:16Z",
-        "raw_sha256": "b220423ed328d15079b31d05293e7de689bee69bb4c7d1198118f3ce3722e4c3",
+        "observed_at": "2026-08-16T14:42:14Z",
+        "raw_sha256": "09c80437eb7a7798464113ede8072630593387ae0d5fb785b3a8610aafc8af50",
         "schema_version": 1,
-        "snapshot_id": "e1322a81491ff1613514287d",
+        "snapshot_id": "43e546cd669277f750932599",
         "source_id": "codex-reset-radar",
         "source_updated_at": null,
         "source_url": "https://codexresetradar.com/"
@@ -94,10 +94,10 @@
         "forecasts": {
           "24h": 0.4
         },
-        "observed_at": "2026-08-16T13:47:16Z",
-        "raw_sha256": "36e66eb9f301efaabb2ba55ac4882cbdb33a7e3b4814eada688687d0d7d03f5d",
+        "observed_at": "2026-08-16T14:42:14Z",
+        "raw_sha256": "5d1327eb07efc516f58b6745f049804e164c34bec48552b535181490d30f108b",
         "schema_version": 1,
-        "snapshot_id": "fad384b5774e6db17c8c14d1",
+        "snapshot_id": "195a753d2292276b0d13fadb",
         "source_id": "codexreset-today",
         "source_updated_at": null,
         "source_url": "https://codexreset.today/"
@@ -116,12 +116,12 @@
         "forecasts": {
           "48h": 0.23
         },
-        "observed_at": "2026-08-16T13:47:16Z",
-        "raw_sha256": "2869200adca484f45303e8f5ed1c6e681130d9968ae885d9495c05090db20ada",
+        "observed_at": "2026-08-16T14:42:14Z",
+        "raw_sha256": "20177dbc71a6add4550ff6d1dd5758436af632c4cb38503794406de668376587",
         "schema_version": 1,
-        "snapshot_id": "6bb4d290f26c4f7aea4e75c3",
+        "snapshot_id": "10483ed62f87cfd03038ac99",
         "source_id": "willcodexquotareset",
-        "source_updated_at": "2026-08-16T13:25:26Z",
+        "source_updated_at": "2026-08-16T14:26:49Z",
         "source_url": "https://www.willcodexquotareset.com/api/forecast"
       },
       "name": "Will Codex Quota Reset",
