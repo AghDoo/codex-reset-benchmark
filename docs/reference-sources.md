@@ -1,11 +1,11 @@
 # Initial Source Inventory
 
-Reviewed 2026-08-13; updated 2026-08-14. The machine-readable registry is `data/sources.json`.
+Reviewed 2026-08-13; updated 2026-08-16. The machine-readable registry is `data/sources.json`.
 
 | Source | V1 state | Extraction | Horizons | Initial review note |
 |---|---|---|---|---|
 | codex-reset.com | enabled | public JSON API | 24h, 48h | `/api/forecast` is publicly advertised by the site |
-| codexreset.org | enabled | public HTML | 24h, 48h | server-rendered `Final forecast` values observed |
+| codexreset.org | enabled | public HTML | 24h, 48h | server-rendered `Final forecast` values observed; source-scoped 1.5 MB fetch cap accommodates the current ~1 MB page without relaxing the global limit |
 | codexresetradar.com | enabled | public HTML | 48h | public deterministic 48h percentage observed |
 | codexreset.today | enabled | public HTML | 24h | headline probability explicitly labeled next-24h |
 | willcodexquotareset.com | enabled | public JSON API | 48h | public client loads `forecast.score` from `/api/forecast`; homepage HTML can remain a loading placeholder |
