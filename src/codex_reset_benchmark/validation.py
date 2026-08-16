@@ -26,6 +26,14 @@ def validate_source_registry(payload: dict[str, Any]) -> list[str]:
         collector_type = collector.get("type")
         if source.get("enabled") and collector_type not in {"json_api", "html_regex", "status_watch_json"}:
             errors.append(f"{sid}: enabled source has unsupported collector")
+        max_response_bytes = collector.get("max_response_bytes")
+        if max_response_bytes is not None:
+            if (
+                isinstance(max_response_bytes, bool)
+                or not isinstance(max_response_bytes, int)
+                or not 1 <= max_response_bytes <= 5_000_000
+            ):
+                errors.append(f"{sid}: max_response_bytes must be an integer between 1 and 5000000")
         for horizon, rule in (collector.get("probabilities") or {}).items():
             if horizon not in {"5h", "24h", "48h"}:
                 errors.append(f"{sid}: unsupported V1 horizon {horizon}")
