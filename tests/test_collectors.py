@@ -16,8 +16,10 @@ class FakeClient:
     def __init__(self, body: str, url: str = "https://example.test/forecast"):
         self.body = body
         self.url = url
+        self.last_max_bytes: int | None = None
 
-    def get(self, url: str, *, respect_robots: bool = True) -> HttpResponse:
+    def get(self, url: str, *, respect_robots: bool = True, max_bytes: int | None = None) -> HttpResponse:
+        self.last_max_bytes = max_bytes
         return HttpResponse(self.url, 200, self.body)
 
 
@@ -137,6 +139,18 @@ class CollectorTests(unittest.TestCase):
         """
         snapshot = collect_source(source, FakeClient(body), now=self.now)
         self.assertEqual(snapshot.forecasts, {"24h": 0.4})
+
+    def test_registered_codexreset_org_uses_scoped_response_cap(self) -> None:
+        registry = json.loads((ROOT / "data" / "sources.json").read_text(encoding="utf-8"))
+        source = next(item for item in registry["sources"] if item["id"] == "codexreset-org")
+        body = (
+            "<div>24 hours <span>0%</span><b>Final forecast: 18%</b></div>"
+            "<div>48 hours <span>0%</span><b>Final forecast: 34%</b></div>"
+        )
+        client = FakeClient(body, source["forecast_url"])
+        snapshot = collect_source(source, client, now=self.now)
+        self.assertEqual(snapshot.forecasts, {"24h": 0.18, "48h": 0.34})
+        self.assertEqual(client.last_max_bytes, 1_500_000)
 
     def test_registered_html_sources_match_current_visible_copy(self) -> None:
         registry = json.loads((ROOT / "data" / "sources.json").read_text(encoding="utf-8"))

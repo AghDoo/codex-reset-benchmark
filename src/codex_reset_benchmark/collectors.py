@@ -94,7 +94,11 @@ def collect_source(source: dict[str, Any], client: HttpClient, now: datetime | N
     if not isinstance(url, str) or not url.startswith(("https://", "http://")):
         raise CollectorError("source forecast_url must be public HTTP(S)")
 
-    response = client.get(url, respect_robots=bool(config.get("respect_robots", True)))
+    response = client.get(
+        url,
+        respect_robots=bool(config.get("respect_robots", True)),
+        max_bytes=config.get("max_response_bytes"),
+    )
     raw = response.text
     raw_sha256 = hashlib.sha256(raw.encode("utf-8")).hexdigest()
     forecasts: dict[str, float] = {}
