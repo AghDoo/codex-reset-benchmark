@@ -161,7 +161,7 @@
       "access": {
         "kind": "public_html",
         "authentication": "none",
-        "notes": "Registered but disabled: server-rendered placeholders can show 0% while horizon fields are loading, so a stable data endpoint is required before scoring."
+        "notes": "Registered but disabled: server-rendered placeholders can show 0% while horizon values are loading, so a stable data endpoint is required before scoring."
       }
     },
     {
