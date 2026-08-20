@@ -1,8 +1,8 @@
 {
   "confirmed_event_count": 4,
-  "generated_at": "2026-08-20T07:59:26Z",
+  "generated_at": "2026-08-20T08:58:28Z",
   "ground_truth_reviewed_at": "2026-08-13T13:30:00Z",
   "methodology_version": "1.0.0",
   "schema_version": 1,
-  "snapshot_count": 652
+  "snapshot_count": 657
 }
