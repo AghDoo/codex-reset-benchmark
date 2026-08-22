@@ -21,12 +21,12 @@ class GroundTruthFreshnessTests(unittest.TestCase):
 
     def test_stale_beyond_threshold(self) -> None:
         result = evaluate_ground_truth_freshness(
-            {"reviewed_at": "2026-08-20T23:59:59Z"},
+            {"reviewed_at": "2026-08-20T23:00:00Z"},
             now=self.now,
             max_age_hours=36,
         )
         self.assertEqual(result["state"], "stale")
-        self.assertGreater(result["age_hours"], 36.0)
+        self.assertEqual(result["age_hours"], 37.0)
 
     def test_exact_threshold_is_still_fresh(self) -> None:
         result = evaluate_ground_truth_freshness(
