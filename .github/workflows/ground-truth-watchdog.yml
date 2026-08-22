@@ -1,0 +1,72 @@
+name: Ground Truth watchdog
+
+on:
+  schedule:
+    - cron: "41 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  PYTHONPATH: src
+  ALERT_TITLE: "[Alert] Ground Truth review is stale"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Evaluate Ground Truth freshness
+        id: freshness
+        shell: bash
+        run: |
+          set +e
+          python scripts/check_ground_truth_freshness.py --max-age-hours 36 > /tmp/ground-truth-freshness.json
+          code=$?
+          set -e
+          cat /tmp/ground-truth-freshness.json
+          if [ "$code" -eq 0 ]; then
+            echo "state=fresh" >> "$GITHUB_OUTPUT"
+          elif [ "$code" -eq 2 ]; then
+            echo "state=stale" >> "$GITHUB_OUTPUT"
+          else
+            exit "$code"
+          fi
+      - name: Open stale Ground Truth alert
+        if: steps.freshness.outputs.state == 'stale'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          existing="$(gh issue list --state open --limit 100 --json number,title --jq '.[] | select(.title == "[Alert] Ground Truth review is stale") | .number' | head -n 1)"
+          if [ -n "$existing" ]; then
+            echo "Alert issue #$existing is already open."
+            exit 0
+          fi
+          {
+            echo "Ground Truth review freshness exceeded the 36-hour operational threshold."
+            echo
+            echo '```json'
+            cat /tmp/ground-truth-freshness.json
+            echo '```'
+            echo
+            echo "Review public reset-like announcements, classify qualifying and excluded events, advance data/events/resets.json reviewed_at, then let the next watchdog run close this issue automatically."
+          } > /tmp/ground-truth-alert.md
+          gh issue create --title "$ALERT_TITLE" --body-file /tmp/ground-truth-alert.md
+      - name: Close resolved Ground Truth alert
+        if: steps.freshness.outputs.state == 'fresh'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh issue list --state open --limit 100 --json number,title --jq '.[] | select(.title == "[Alert] Ground Truth review is stale") | .number' | while read -r issue; do
+            [ -z "$issue" ] && continue
+            gh issue close "$issue" --comment "Ground Truth review is fresh again; closing this watchdog alert automatically."
+          done

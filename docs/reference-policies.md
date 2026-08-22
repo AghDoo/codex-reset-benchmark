@@ -14,6 +14,14 @@ The project does not:
 
 Where a source publishes `robots.txt`, the collector checks it before collection. A denied path is skipped. A source can be disabled if its operator asks not to be collected.
 
+## Ground Truth freshness
+
+Ground Truth requires human review because reset-like announcements must be classified against the benchmark methodology. An independent watchdog runs every six hours and treats `data/events/resets.json` as operationally stale when its top-level `reviewed_at` is more than 36 hours old.
+
+The 36-hour threshold is an operational maintenance target, not a scoring rule. When the threshold is exceeded, the watchdog opens one fixed GitHub alert issue. Repeated checks reuse the same open alert instead of creating duplicates. After `reviewed_at` is advanced and becomes fresh again, the watchdog closes the alert automatically.
+
+Scoring continues to use `reviewed_at` itself as the resolution boundary, so stale Ground Truth never causes unreviewed time to be silently scored as a negative outcome.
+
 ## Attribution
 
 Every snapshot records the source ID and source URL. The website links to source sites by name and does not reuse their logos or visual identity.
