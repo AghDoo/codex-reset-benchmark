@@ -67,7 +67,26 @@ Variable-window forecasts are preserved as-issued. V1 does not coerce source-def
 }
 ```
 
-Only `status = confirmed` events participate in scoring. `confidence` is one of `confirmed`, `estimated`, or `announcement-only`.
+Only entries under `events` can participate in scoring, and only when `status = confirmed`. `confidence` is one of `confirmed`, `estimated`, or `announcement-only`.
+
+## Excluded event
+
+A reviewed public reset-like announcement that does not satisfy the V1 target is preserved under top-level `excluded_events` instead of being discarded or inserted into scoring truth:
+
+```json
+{
+  "id": "stable-event-id",
+  "announced_at": "...",
+  "scope": "global",
+  "type": "banked_reset_grant",
+  "source_url": "https://...",
+  "reason": "Why this announcement is outside the benchmark target"
+}
+```
+
+Excluded event IDs cannot overlap scoring-event IDs, and their timestamps must fall at or before the dataset's top-level `reviewed_at`. `excluded_events` are audit-only and never passed to the scoring engine.
+
+The top-level `reviewed_at` is the latest instant through which both qualifying and excluded reset-like announcements have been reviewed. It is the resolution boundary used by scoring so unreviewed time is never silently treated as a negative outcome.
 
 ## Collector status
 

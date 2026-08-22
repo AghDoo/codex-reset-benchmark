@@ -99,16 +99,26 @@ def validate_snapshot(snapshot: dict[str, Any], source_ids: set[str]) -> list[st
 def validate_events(payload: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     seen: set[str] = set()
+    reviewed_at: datetime | None = None
+    try:
+        reviewed_at = parse_datetime(payload["reviewed_at"])
+        if reviewed_at > datetime.now(timezone.utc) + timedelta(minutes=5):
+            errors.append("ground truth reviewed_at is in the future")
+    except (KeyError, ValueError) as exc:
+        errors.append(f"invalid ground truth reviewed_at: {exc}")
+
     for event in payload.get("events", []):
         event_id = event.get("id")
         if not event_id or event_id in seen:
             errors.append(f"invalid or duplicate event id: {event_id!r}")
-        seen.add(event_id)
+        if event_id:
+            seen.add(event_id)
         try:
-            parse_datetime(event["occurred_at"])
-            parse_datetime(event["announced_at"])
-            if event.get("effective_at"):
-                parse_datetime(event["effective_at"])
+            occurred_at = parse_datetime(event["occurred_at"])
+            announced_at = parse_datetime(event["announced_at"])
+            effective_at = parse_datetime(event["effective_at"]) if event.get("effective_at") else None
+            if reviewed_at and max(value for value in (occurred_at, announced_at, effective_at) if value is not None) > reviewed_at:
+                errors.append(f"event {event_id}: timestamp exceeds reviewed_at")
         except (KeyError, ValueError) as exc:
             errors.append(f"event {event_id}: invalid timestamp: {exc}")
         if event.get("status") not in {"confirmed", "pending", "superseded"}:
@@ -117,6 +127,25 @@ def validate_events(payload: dict[str, Any]) -> list[str]:
             errors.append(f"event {event_id}: invalid confidence")
         if not str(event.get("source_url", "")).startswith("https://"):
             errors.append(f"event {event_id}: source_url must use HTTPS")
+
+    for exclusion in payload.get("excluded_events", []):
+        exclusion_id = exclusion.get("id")
+        if not exclusion_id or exclusion_id in seen:
+            errors.append(f"invalid or duplicate excluded event id: {exclusion_id!r}")
+        if exclusion_id:
+            seen.add(exclusion_id)
+        try:
+            announced_at = parse_datetime(exclusion["announced_at"])
+            if reviewed_at and announced_at > reviewed_at:
+                errors.append(f"excluded event {exclusion_id}: announced_at exceeds reviewed_at")
+        except (KeyError, ValueError) as exc:
+            errors.append(f"excluded event {exclusion_id}: invalid timestamp: {exc}")
+        if not str(exclusion.get("type", "")).strip():
+            errors.append(f"excluded event {exclusion_id}: type is required")
+        if not str(exclusion.get("reason", "")).strip():
+            errors.append(f"excluded event {exclusion_id}: reason is required")
+        if not str(exclusion.get("source_url", "")).startswith("https://"):
+            errors.append(f"excluded event {exclusion_id}: source_url must use HTTPS")
     return errors
 
 

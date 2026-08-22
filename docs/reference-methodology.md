@@ -48,6 +48,8 @@ No forecast is imputed. A missing, failed, stale, or unparsable source simply ha
 
 `data/events/resets.json` is the reviewed scoring dataset. Its top-level `reviewed_at` timestamp is the latest instant through which the event history has been reviewed. Events must include a public source URL, explicit scope, status, and review note. Ambiguous promises remain excluded until a completed event can be verified.
 
+Reset-like announcements that were reviewed but intentionally excluded from the V1 target, such as banked reset grants, are retained under `excluded_events` with their source URL and exclusion reason. They are audit evidence only and never participate in scoring. Advancing `reviewed_at` therefore means both qualifying and excluded announcements through that instant have been reviewed.
+
 Corrections are non-destructive: a historical decision is superseded with an auditable correction rather than silently rewritten.
 
 ## Known limitation
