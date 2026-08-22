@@ -1,14 +1,16 @@
 {
   "baselines": {
     "24h": {
-      "descriptive_brier": null,
-      "descriptive_event_rate": null,
-      "resolved_cases": 0
+      "descriptive_brier": 0.0,
+      "descriptive_event_rate": 0.0,
+      "note": "Descriptive in-sample climatology; not used to rank sources.",
+      "resolved_cases": 86
     },
     "48h": {
-      "descriptive_brier": null,
-      "descriptive_event_rate": null,
-      "resolved_cases": 0
+      "descriptive_brier": 0.0,
+      "descriptive_event_rate": 0.0,
+      "note": "Descriptive in-sample climatology; not used to rank sources.",
+      "resolved_cases": 97
     },
     "5h": {
       "descriptive_brier": null,
@@ -22,8 +24,8 @@
     12,
     18
   ],
-  "generated_at": "2026-08-22T11:39:22Z",
-  "ground_truth_reviewed_at": "2026-08-13T13:30:00Z",
+  "generated_at": "2026-08-22T13:04:02Z",
+  "ground_truth_reviewed_at": "2026-08-22T12:57:00Z",
   "max_forecast_age_hours": {
     "24h": 6,
     "48h": 6,
@@ -33,6 +35,42 @@
   "minimum_rank_samples": 10,
   "rankings": {
     "24h": [
+      {
+        "availability": 0.965517,
+        "brier": 0.034175,
+        "eligible": true,
+        "hit_rate": 1.0,
+        "log_loss": 0.20419,
+        "name": "Codex Reset Monitor",
+        "rank": 1,
+        "samples": 28,
+        "source_id": "codexreset-org",
+        "url": "https://codexreset.org/"
+      },
+      {
+        "availability": 1.0,
+        "brier": 0.085712,
+        "eligible": true,
+        "hit_rate": 1.0,
+        "log_loss": 0.346252,
+        "name": "Codex Reset / Tibo Radar",
+        "rank": 2,
+        "samples": 29,
+        "source_id": "codex-reset-com",
+        "url": "https://codex-reset.com/"
+      },
+      {
+        "availability": 1.0,
+        "brier": 0.144607,
+        "eligible": true,
+        "hit_rate": 1.0,
+        "log_loss": 0.474637,
+        "name": "Codex Reset Today",
+        "rank": 3,
+        "samples": 29,
+        "source_id": "codexreset-today",
+        "url": "https://codexreset.today/"
+      },
       {
         "availability": null,
         "brier": null,
@@ -51,47 +89,11 @@
         "eligible": false,
         "hit_rate": null,
         "log_loss": null,
-        "name": "Codex Reset / Tibo Radar",
-        "rank": null,
-        "samples": 0,
-        "source_id": "codex-reset-com",
-        "url": "https://codex-reset.com/"
-      },
-      {
-        "availability": null,
-        "brier": null,
-        "eligible": false,
-        "hit_rate": null,
-        "log_loss": null,
-        "name": "Codex Reset Monitor",
-        "rank": null,
-        "samples": 0,
-        "source_id": "codexreset-org",
-        "url": "https://codexreset.org/"
-      },
-      {
-        "availability": null,
-        "brier": null,
-        "eligible": false,
-        "hit_rate": null,
-        "log_loss": null,
         "name": "Codex Reset Radar",
         "rank": null,
         "samples": 0,
         "source_id": "codex-reset-radar",
         "url": "https://codexresetradar.com/"
-      },
-      {
-        "availability": null,
-        "brier": null,
-        "eligible": false,
-        "hit_rate": null,
-        "log_loss": null,
-        "name": "Codex Reset Today",
-        "rank": null,
-        "samples": 0,
-        "source_id": "codexreset-today",
-        "url": "https://codexreset.today/"
       },
       {
         "availability": null,
@@ -144,6 +146,54 @@
     ],
     "48h": [
       {
+        "availability": 1.0,
+        "brier": 0.089275,
+        "eligible": true,
+        "hit_rate": 1.0,
+        "log_loss": 0.345828,
+        "name": "Will Codex Quota Reset",
+        "rank": 1,
+        "samples": 24,
+        "source_id": "willcodexquotareset",
+        "url": "https://www.willcodexquotareset.com/"
+      },
+      {
+        "availability": 0.96,
+        "brier": 0.1181,
+        "eligible": true,
+        "hit_rate": 1.0,
+        "log_loss": 0.420836,
+        "name": "Codex Reset Monitor",
+        "rank": 2,
+        "samples": 24,
+        "source_id": "codexreset-org",
+        "url": "https://codexreset.org/"
+      },
+      {
+        "availability": 1.0,
+        "brier": 0.198842,
+        "eligible": true,
+        "hit_rate": 1.0,
+        "log_loss": 0.590408,
+        "name": "Codex Reset Radar",
+        "rank": 3,
+        "samples": 24,
+        "source_id": "codex-reset-radar",
+        "url": "https://codexresetradar.com/"
+      },
+      {
+        "availability": 1.0,
+        "brier": 0.25222,
+        "eligible": true,
+        "hit_rate": 0.0,
+        "log_loss": 0.697587,
+        "name": "Codex Reset / Tibo Radar",
+        "rank": 4,
+        "samples": 25,
+        "source_id": "codex-reset-com",
+        "url": "https://codex-reset.com/"
+      },
+      {
         "availability": null,
         "brier": null,
         "eligible": false,
@@ -154,42 +204,6 @@
         "samples": 0,
         "source_id": "akiai-reset-radar",
         "url": "https://akiai.cn/radar/en/index.html"
-      },
-      {
-        "availability": null,
-        "brier": null,
-        "eligible": false,
-        "hit_rate": null,
-        "log_loss": null,
-        "name": "Codex Reset / Tibo Radar",
-        "rank": null,
-        "samples": 0,
-        "source_id": "codex-reset-com",
-        "url": "https://codex-reset.com/"
-      },
-      {
-        "availability": null,
-        "brier": null,
-        "eligible": false,
-        "hit_rate": null,
-        "log_loss": null,
-        "name": "Codex Reset Monitor",
-        "rank": null,
-        "samples": 0,
-        "source_id": "codexreset-org",
-        "url": "https://codexreset.org/"
-      },
-      {
-        "availability": null,
-        "brier": null,
-        "eligible": false,
-        "hit_rate": null,
-        "log_loss": null,
-        "name": "Codex Reset Radar",
-        "rank": null,
-        "samples": 0,
-        "source_id": "codex-reset-radar",
-        "url": "https://codexresetradar.com/"
       },
       {
         "availability": null,
@@ -226,18 +240,6 @@
         "samples": 0,
         "source_id": "codex-tibo-codes",
         "url": "https://codex-tibo.codes/"
-      },
-      {
-        "availability": null,
-        "brier": null,
-        "eligible": false,
-        "hit_rate": null,
-        "log_loss": null,
-        "name": "Will Codex Quota Reset",
-        "rank": null,
-        "samples": 0,
-        "source_id": "willcodexquotareset",
-        "url": "https://www.willcodexquotareset.com/"
       },
       {
         "availability": null,
