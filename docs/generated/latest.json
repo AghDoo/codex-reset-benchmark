@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T05:27:35Z",
+  "generated_at": "2026-08-28T18:47:55Z",
   "ground_truth_reviewed_at": "2026-08-22T12:57:00Z",
   "latest_confirmed_reset": {
     "announced_at": "2026-08-13T01:01:37.748Z",
@@ -27,12 +27,12 @@
           "24h": 0.2508306113,
           "48h": 0.438745227
         },
-        "observed_at": "2026-08-28T05:27:32Z",
-        "raw_sha256": "14fcd4ddb0122efe0ccfe8cf1aea663ab7326cedb13a54d1e130797a69d2923f",
+        "observed_at": "2026-08-28T18:47:48Z",
+        "raw_sha256": "c50be49f7b9f8f58855fef5fec4fa1818ba98c705e2605b4d4b029c72198e288",
         "schema_version": 1,
-        "snapshot_id": "abfbfac9fe4d940027403bb0",
+        "snapshot_id": "452ad60d53bf88855718b7d0",
         "source_id": "codex-reset-com",
-        "source_updated_at": "2026-08-28T05:27:33Z",
+        "source_updated_at": "2026-08-28T18:47:49Z",
         "source_url": "https://codex-reset.com/api/forecast"
       },
       "name": "Codex Reset / Tibo Radar",
@@ -50,10 +50,10 @@
           "24h": 0.22,
           "48h": 0.39
         },
-        "observed_at": "2026-08-28T05:27:32Z",
-        "raw_sha256": "9380c78d8d6a45cb966d6ca26f8b3ba2a4cbdf4d0689ebf3ab4dd2ec6cccd502",
+        "observed_at": "2026-08-28T18:47:48Z",
+        "raw_sha256": "73ba53ac98a85b1ec36c7c3c400c5605044df764752e2e189dd809668c608475",
         "schema_version": 1,
-        "snapshot_id": "1ab0ddf95d3ec2e50d433cf2",
+        "snapshot_id": "57662aee7a62887af82f4220",
         "source_id": "codexreset-org",
         "source_updated_at": null,
         "source_url": "https://codexreset.org/"
@@ -72,10 +72,10 @@
         "forecasts": {
           "48h": 0.45
         },
-        "observed_at": "2026-08-28T05:27:32Z",
-        "raw_sha256": "dcf7524cfdc59e70fabd52e2e6ee11b97950489f96bc941a46a657249a4d2ce4",
+        "observed_at": "2026-08-28T18:47:48Z",
+        "raw_sha256": "67a12bf302c8b4d8f6d3c3fc0355bc84d2cd7ec4a31efd05a35d04b456ef8627",
         "schema_version": 1,
-        "snapshot_id": "6475691127d948d3374b4573",
+        "snapshot_id": "e3d07a49a42d1051d42dcd64",
         "source_id": "codex-reset-radar",
         "source_updated_at": null,
         "source_url": "https://codexresetradar.com/"
@@ -94,10 +94,10 @@
         "forecasts": {
           "24h": 0.4
         },
-        "observed_at": "2026-08-28T05:27:32Z",
-        "raw_sha256": "feb43a124b965e2c7ba1b11bc2d15e3c4828cfe7e23aa0b4256306c65dcff6c6",
+        "observed_at": "2026-08-28T18:47:48Z",
+        "raw_sha256": "38435fedc0aded8dbcc3d12fce75ebb3045433803f80e804dcd928b6cc75d494",
         "schema_version": 1,
-        "snapshot_id": "b967cc6515c23e818a20a448",
+        "snapshot_id": "9a8b4f21cb37de4d07fcd57f",
         "source_id": "codexreset-today",
         "source_updated_at": null,
         "source_url": "https://codexreset.today/"
@@ -114,14 +114,14 @@
         "collector_type": "json_api",
         "collector_version": "1",
         "forecasts": {
-          "48h": 0.27
+          "48h": 0.37
         },
-        "observed_at": "2026-08-28T05:27:32Z",
-        "raw_sha256": "082ca3e8a7d75fdabbbb4957ba1aee7673b381228b2e88284493b6a769295897",
+        "observed_at": "2026-08-28T18:47:48Z",
+        "raw_sha256": "9a585ea1f3593119ac20d0691c45075057d3f88c0ea62af779fdac692282f568",
         "schema_version": 1,
-        "snapshot_id": "3cc41fea9bfac27a353dd66b",
+        "snapshot_id": "edb6f73c33b59645354b7f5c",
         "source_id": "willcodexquotareset",
-        "source_updated_at": "2026-08-28T05:14:23Z",
+        "source_updated_at": "2026-08-28T18:30:43Z",
         "source_url": "https://www.willcodexquotareset.com/api/forecast"
       },
       "name": "Will Codex Quota Reset",
@@ -129,7 +129,7 @@
       "url": "https://www.willcodexquotareset.com/"
     },
     {
-      "age_hours": 19.52,
+      "age_hours": 32.86,
       "enabled": true,
       "id": "codex-resets-com",
       "latest": {
@@ -152,7 +152,7 @@
         }
       },
       "name": "Codex Resets",
-      "stale": false,
+      "stale": true,
       "url": "https://codex-resets.com/"
     },
     {
