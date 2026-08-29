@@ -2,79 +2,79 @@
   "schema_version": 1,
   "sources": {
     "akiai-reset-radar": {
-      "checked_at": "2026-08-29T18:35:49Z",
+      "checked_at": "2026-08-29T21:47:20Z",
       "state": "disabled"
     },
     "codex-reset-com": {
       "archive_path": "data/forecasts/2026/08/29.ndjson",
-      "checked_at": "2026-08-29T18:35:49Z",
+      "checked_at": "2026-08-29T21:47:20Z",
       "forecasts": {
-        "24h": 0.2508306113,
-        "48h": 0.438745227
+        "24h": 0.251985766,
+        "48h": 0.4404747058
       },
       "inserted": true,
-      "snapshot_id": "c107a107e444356efe723f0e",
+      "snapshot_id": "2d2a6d66a29b5ce7b7279245",
       "state": "ok"
     },
     "codex-reset-radar": {
       "archive_path": "data/forecasts/2026/08/29.ndjson",
-      "checked_at": "2026-08-29T18:35:49Z",
+      "checked_at": "2026-08-29T21:47:20Z",
       "forecasts": {
         "48h": 0.45
       },
       "inserted": true,
-      "snapshot_id": "4fa37315dab970e48f104344",
+      "snapshot_id": "fd528931f01ebc457dc88e24",
       "state": "ok"
     },
     "codex-resets-com": {
       "archive_path": "data/forecasts/2026/08/29.ndjson",
-      "checked_at": "2026-08-29T18:35:49Z",
+      "checked_at": "2026-08-29T21:47:20Z",
       "forecasts": {},
       "inserted": true,
-      "snapshot_id": "60a2590fa195cc94a3312f1e",
+      "snapshot_id": "c7d471ea615d6823e58d7962",
       "state": "ok",
       "window_forecast": {
-        "expires_at": "2026-08-30T07:00:00Z",
-        "forecast_window": "by end of Saturday",
-        "level": "elevated",
-        "observed_at": "2026-08-29T05:38:31Z",
-        "probability": 0.8
+        "expires_at": "2026-08-31T07:00:00Z",
+        "forecast_window": "by end of sunday",
+        "level": "strong",
+        "observed_at": "2026-08-29T21:23:38Z",
+        "probability": 0.75
       }
     },
     "codex-tibo-codes": {
-      "checked_at": "2026-08-29T18:35:49Z",
+      "checked_at": "2026-08-29T21:47:20Z",
       "state": "disabled"
     },
     "codexreset-org": {
       "archive_path": "data/forecasts/2026/08/29.ndjson",
-      "checked_at": "2026-08-29T18:35:49Z",
+      "checked_at": "2026-08-29T21:47:20Z",
       "forecasts": {
-        "24h": 0.42,
-        "48h": 0.67
+        "24h": 0.23,
+        "48h": 0.4
       },
       "inserted": true,
-      "snapshot_id": "4d3cd9d67f1c054cdac30788",
+      "snapshot_id": "72fca73a75fa114ff543964f",
       "state": "ok"
     },
     "codexreset-today": {
-      "checked_at": "2026-08-29T18:35:49Z",
+      "checked_at": "2026-08-29T21:47:20Z",
       "error": "no forecast values were extracted; placeholders are not archived",
       "state": "error"
     },
     "willcodexquotareset": {
       "archive_path": "data/forecasts/2026/08/29.ndjson",
-      "checked_at": "2026-08-29T18:35:49Z",
+      "checked_at": "2026-08-29T21:47:20Z",
       "forecasts": {
-        "48h": 0.24
+        "48h": 0.36
       },
       "inserted": true,
-      "snapshot_id": "9b7362a98eb4176e90a5f772",
+      "snapshot_id": "cba906eae081a8ccc8c65914",
       "state": "ok"
     },
     "willcodexreset": {
-      "checked_at": "2026-08-29T18:35:49Z",
+      "checked_at": "2026-08-29T21:47:20Z",
       "state": "disabled"
     }
   },
-  "updated_at": "2026-08-29T18:35:49Z"
+  "updated_at": "2026-08-29T21:47:20Z"
 }
