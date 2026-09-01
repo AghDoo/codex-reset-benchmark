@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-01T10:14:40Z",
+  "generated_at": "2026-09-01T14:58:19Z",
   "ground_truth_reviewed_at": "2026-08-22T12:57:00Z",
   "latest_confirmed_reset": {
     "announced_at": "2026-08-13T01:01:37.748Z",
@@ -27,12 +27,12 @@
           "24h": 0.2745513455,
           "48h": 0.4737242496
         },
-        "observed_at": "2026-09-01T10:14:37Z",
-        "raw_sha256": "a3e3f06ca51dacc9e983640eeb3b14535ec332c8a5ff35da04b5e09c2b4f97af",
+        "observed_at": "2026-09-01T14:58:15Z",
+        "raw_sha256": "cb89dad370704d4c0c9af7109e8a42ada60d52e165e3635cd00f19f13812a947",
         "schema_version": 1,
-        "snapshot_id": "408379616930d93d5b66a719",
+        "snapshot_id": "7af6a64d14355bd2ad6c755b",
         "source_id": "codex-reset-com",
-        "source_updated_at": "2026-09-01T10:14:37Z",
+        "source_updated_at": "2026-09-01T14:58:15Z",
         "source_url": "https://codex-reset.com/api/forecast"
       },
       "name": "Codex Reset / Tibo Radar",
@@ -47,13 +47,13 @@
         "collector_type": "html_regex",
         "collector_version": "1",
         "forecasts": {
-          "24h": 0.24,
-          "48h": 0.42
+          "24h": 0.25,
+          "48h": 0.44
         },
-        "observed_at": "2026-09-01T10:14:37Z",
-        "raw_sha256": "e904c785dc837b8222c1c279f0ab2e94486a6dfc1d2db969b2d15564d1596ae4",
+        "observed_at": "2026-09-01T14:58:15Z",
+        "raw_sha256": "c0b1b1ec3aab6a2842b0ffc7bfb51dbb5be89ae15c63c8654af41e56101928fa",
         "schema_version": 1,
-        "snapshot_id": "5c15822e1ca28ec79c15b524",
+        "snapshot_id": "20ca593ee76d13780818214c",
         "source_id": "codexreset-org",
         "source_updated_at": null,
         "source_url": "https://codexreset.org/"
@@ -72,10 +72,10 @@
         "forecasts": {
           "48h": 0.45
         },
-        "observed_at": "2026-09-01T10:14:37Z",
-        "raw_sha256": "05639be2065da5d0e2a95d6dc1b06f14948880e449c3b0be2650a231e2b8ef6b",
+        "observed_at": "2026-09-01T14:58:15Z",
+        "raw_sha256": "381d75623471e4e909fb5ede28fdadf90e16af2c830f39be7e9a914393aabeb8",
         "schema_version": 1,
-        "snapshot_id": "97e6de07952518d28b20d1d4",
+        "snapshot_id": "18a09c0c2a316084aa6c49cb",
         "source_id": "codex-reset-radar",
         "source_updated_at": null,
         "source_url": "https://codexresetradar.com/"
@@ -94,10 +94,10 @@
         "forecasts": {
           "24h": 0.22
         },
-        "observed_at": "2026-09-01T10:14:37Z",
-        "raw_sha256": "b1051c6cd9b5d707ac74cc7e70e56623efdc21b9159942504eea41b8860f9a67",
+        "observed_at": "2026-09-01T14:58:15Z",
+        "raw_sha256": "40c6322c306355c936259858504e99dad1dc145285d733d54b7254fb02b9240a",
         "schema_version": 1,
-        "snapshot_id": "e8715bb95338a304d40a178c",
+        "snapshot_id": "f041309b355d1a7fa1e8c074",
         "source_id": "codexreset-today",
         "source_updated_at": null,
         "source_url": "https://codexreset.today/"
@@ -114,14 +114,14 @@
         "collector_type": "json_api",
         "collector_version": "1",
         "forecasts": {
-          "48h": 0.14
+          "48h": 0.15
         },
-        "observed_at": "2026-09-01T10:14:37Z",
-        "raw_sha256": "cc74fa1a086028558f1ae615e19eb075e06c8910cd8305bcf077360965776dde",
+        "observed_at": "2026-09-01T14:58:15Z",
+        "raw_sha256": "af81b405bf6fc34c59e05da1b1c7d0aa720c4b01397794b5ec938ec950bf3235",
         "schema_version": 1,
-        "snapshot_id": "04511078215f9f0df34c642b",
+        "snapshot_id": "ba7abb473028806461e8752f",
         "source_id": "willcodexquotareset",
-        "source_updated_at": "2026-09-01T10:00:23Z",
+        "source_updated_at": "2026-09-01T14:35:36Z",
         "source_url": "https://www.willcodexquotareset.com/api/forecast"
       },
       "name": "Will Codex Quota Reset",
@@ -129,7 +129,7 @@
       "url": "https://www.willcodexquotareset.com/"
     },
     {
-      "age_hours": 34.68,
+      "age_hours": 39.41,
       "enabled": true,
       "id": "codex-resets-com",
       "latest": {
