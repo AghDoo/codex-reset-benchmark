@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T05:49:34Z",
+  "generated_at": "2026-09-05T10:41:48Z",
   "ground_truth_reviewed_at": "2026-08-22T12:57:00Z",
   "latest_confirmed_reset": {
     "announced_at": "2026-08-13T01:01:37.748Z",
@@ -27,12 +27,12 @@
           "24h": 0.2745513455,
           "48h": 0.4737242496
         },
-        "observed_at": "2026-09-05T05:49:30Z",
-        "raw_sha256": "bbc6bdf44adbf039fb0878ae551df7a6e06596ed9a65df6f9bc9bc6129ed3519",
+        "observed_at": "2026-09-05T10:41:44Z",
+        "raw_sha256": "50cab0142e3c2c69041ccbf148eb3383e2800b149f87b4a9a542bdf7f6c2c106",
         "schema_version": 1,
-        "snapshot_id": "6fc91b5efcc9e593ebcd0dc9",
+        "snapshot_id": "86ff7510dbc27e1643697a26",
         "source_id": "codex-reset-com",
-        "source_updated_at": "2026-09-05T05:49:31Z",
+        "source_updated_at": "2026-09-05T10:41:44Z",
         "source_url": "https://codex-reset.com/api/forecast"
       },
       "name": "Codex Reset / Tibo Radar",
@@ -47,13 +47,13 @@
         "collector_type": "html_regex",
         "collector_version": "1",
         "forecasts": {
-          "24h": 0.2,
-          "48h": 0.37
+          "24h": 0.21,
+          "48h": 0.41
         },
-        "observed_at": "2026-09-05T05:49:30Z",
-        "raw_sha256": "8c88e8f90e4651c54fd657de6099a03b210d0e3efcafa713d8a11618d920c17a",
+        "observed_at": "2026-09-05T10:41:44Z",
+        "raw_sha256": "81871566ff9077fae13293b489294b9c5f8475539b3443b48ee16054e4cc420b",
         "schema_version": 1,
-        "snapshot_id": "7037711c17be9f71272a2e44",
+        "snapshot_id": "a07467b68a2c6a4ab987ddce",
         "source_id": "codexreset-org",
         "source_updated_at": null,
         "source_url": "https://codexreset.org/"
@@ -72,10 +72,10 @@
         "forecasts": {
           "48h": 0.45
         },
-        "observed_at": "2026-09-05T05:49:30Z",
-        "raw_sha256": "0ad89a7640c708276bce0067aa59621e4a2051726326a2b2ef9797aa615b37ff",
+        "observed_at": "2026-09-05T10:41:44Z",
+        "raw_sha256": "864213f44c93498f96bc50636d34eb39ba4e29ea1f297374a5152fe340857bbd",
         "schema_version": 1,
-        "snapshot_id": "b99aa43647b47fb727acca00",
+        "snapshot_id": "2a29233f1dd08c7bbd940aa3",
         "source_id": "codex-reset-radar",
         "source_updated_at": null,
         "source_url": "https://codexresetradar.com/"
@@ -94,10 +94,10 @@
         "forecasts": {
           "24h": 0.22
         },
-        "observed_at": "2026-09-05T05:49:30Z",
-        "raw_sha256": "c623166519ed4c3d040b6ca4526e0572e9c090d61397a5f8ca826a873c433644",
+        "observed_at": "2026-09-05T10:41:44Z",
+        "raw_sha256": "db1a235bce9fe81b0db770f1ce44d7b809132277c02e3eb1cd8aed660a1b5323",
         "schema_version": 1,
-        "snapshot_id": "2a1694911afc691017ec0b14",
+        "snapshot_id": "08e405d4d83489a54ab95bb4",
         "source_id": "codexreset-today",
         "source_updated_at": null,
         "source_url": "https://codexreset.today/"
@@ -114,14 +114,14 @@
         "collector_type": "json_api",
         "collector_version": "1",
         "forecasts": {
-          "48h": 0.37
+          "48h": 0.29
         },
-        "observed_at": "2026-09-05T05:49:30Z",
-        "raw_sha256": "196c9ce6b8a183f7cef04503cbcf2635e2115504b7adc4a143ed5b7e41f7a520",
+        "observed_at": "2026-09-05T10:41:44Z",
+        "raw_sha256": "2285a5a4c1ea5a3ce377bba217734bba901442ffdb70664833e32e1d2bc17190",
         "schema_version": 1,
-        "snapshot_id": "6980e953f350f34ff5387eb7",
+        "snapshot_id": "d6286a5ec16ec5803289fc56",
         "source_id": "willcodexquotareset",
-        "source_updated_at": "2026-09-05T05:26:14Z",
+        "source_updated_at": "2026-09-05T10:32:30Z",
         "source_url": "https://www.willcodexquotareset.com/api/forecast"
       },
       "name": "Will Codex Quota Reset",
@@ -129,7 +129,7 @@
       "url": "https://www.willcodexquotareset.com/"
     },
     {
-      "age_hours": 31.19,
+      "age_hours": 36.06,
       "enabled": true,
       "id": "codex-resets-com",
       "latest": {
