@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "target": "qualifying_public_reset_event",
-  "reviewed_at": "2026-08-22T12:57:00Z",
+  "reviewed_at": "2026-09-07T08:44:00Z",
   "events": [
     {
       "id": "x-2081940052154933696",
@@ -80,16 +80,113 @@
       "source_url": "https://x.com/thsottiaux/status/2087706104814023111",
       "evidence": "Explicit 15M-milestone reset announcement for everyone, with propagation expected shortly after publication.",
       "review_note": "Announcement time is used because no independently verified per-account completion timestamp is available."
+    },
+    {
+      "id": "x-2091688655828246890",
+      "announced_at": "2026-08-24T00:46:51.902Z",
+      "effective_at": null,
+      "occurred_at": "2026-08-24T00:46:51.902Z",
+      "scope": "global",
+      "type": "hard_reset",
+      "status": "confirmed",
+      "confidence": "confirmed",
+      "source_url": "https://x.com/thsottiaux/status/2091688655828246890",
+      "evidence": "Explicit statement that the reset had been propagated to accounts.",
+      "review_note": "The completion post time is used as occurred_at because no separate effective timestamp is publicly established."
+    },
+    {
+      "id": "x-2092311059197808936",
+      "announced_at": "2026-08-25T18:00:04.429Z",
+      "effective_at": null,
+      "occurred_at": "2026-08-25T18:00:04.429Z",
+      "scope": "global_paid",
+      "type": "hard_reset",
+      "status": "confirmed",
+      "confidence": "confirmed",
+      "source_url": "https://x.com/thsottiaux/status/2092311059197808936",
+      "evidence": "Reply confirmation that the shared Codex reset had already occurred; no standalone announcement was published.",
+      "review_note": "The public confirmation time is used because the quiet reset's exact effective timestamp is not independently established."
+    },
+    {
+      "id": "x-2093014447833116908",
+      "announced_at": "2026-08-27T16:35:05.348Z",
+      "effective_at": null,
+      "occurred_at": "2026-08-27T16:35:05.348Z",
+      "scope": "global",
+      "type": "hard_reset",
+      "status": "confirmed",
+      "confidence": "confirmed",
+      "source_url": "https://x.com/thsottiaux/status/2093014447833116908",
+      "evidence": "Explicit completed reset announcement describing brand-new usage for all ChatGPT Work and Codex users.",
+      "review_note": "Announcement time is used because a separate effective timestamp is not publicly established."
+    },
+    {
+      "id": "x-2093801758665715784",
+      "announced_at": "2026-08-29T20:43:34.878Z",
+      "effective_at": null,
+      "occurred_at": "2026-08-29T20:43:34.878Z",
+      "scope": "global_paid",
+      "type": "hard_reset",
+      "status": "confirmed",
+      "confidence": "confirmed",
+      "source_url": "https://x.com/thsottiaux/status/2093801758665715784",
+      "evidence": "Explicit announcement that usage was being reset for all paid Codex and ChatGPT Work users.",
+      "review_note": "Announcement time is used as occurred_at because propagation timing is not independently established."
+    },
+    {
+      "id": "x-2094252447271366730",
+      "announced_at": "2026-08-31T02:34:27.415Z",
+      "effective_at": null,
+      "occurred_at": "2026-08-31T02:34:27.415Z",
+      "scope": "global_paid",
+      "type": "hard_reset",
+      "status": "confirmed",
+      "confidence": "confirmed",
+      "source_url": "https://x.com/thsottiaux/status/2094252447271366730",
+      "evidence": "Explicit completed reset announcement for all paid ChatGPT Work and Codex subscriptions.",
+      "review_note": "The corrected completion post is used once; a near-duplicate earlier post is not counted as a second reset."
     }
   ],
   "excluded_events": [
+    {
+      "id": "signal-2026-08-19T05:03:48Z",
+      "announced_at": "2026-08-19T05:03:48Z",
+      "scope": "global",
+      "type": "reset_signal_only",
+      "source_url": "https://codexresets.com/",
+      "reason": "The public statement mentions receiving a reset button but does not state that broad Codex usage limits were reset; it is treated as a signal, not a completed event."
+    },
     {
       "id": "x-2090766694897619318",
       "announced_at": "2026-08-21T11:43:19.287Z",
       "scope": "global",
       "type": "banked_reset_grant",
       "source_url": "https://x.com/thsottiaux/status/2090766694897619318",
-      "reason": "The announcement grants a banked reset that users can apply later; it does not immediately replenish broad/global usage limits and is excluded by V1 methodology."
+      "reason": "The announcement grants a banked reset that users can apply later; it does not immediately replenish broad/global usage limits and is excluded by the benchmark methodology."
+    },
+    {
+      "id": "x-2090964822422949999",
+      "announced_at": "2026-08-22T00:50:36.570Z",
+      "scope": "global_paid",
+      "type": "banked_reset_delivery",
+      "source_url": "https://x.com/thsottiaux/status/2090964822422949999",
+      "reason": "The post confirms delivery of a redeemable banked reset, not an immediate shared/global usage-limit reset."
+    },
+    {
+      "id": "x-2095651088502591861",
+      "announced_at": "2026-09-03T23:12:09.470Z",
+      "scope": "paid_plan",
+      "type": "banked_reset_grant",
+      "source_url": "https://x.com/thsottiaux/status/2095651088502591861",
+      "reason": "The Astra compensation is a banked reset credit that recipients may redeem later; it is excluded from the shared hard-reset target."
+    },
+    {
+      "id": "x-2096035437299237298",
+      "announced_at": "2026-09-05T00:39:25.364Z",
+      "scope": "global_paid",
+      "type": "banked_reset_grant",
+      "source_url": "https://x.com/thsottiaux/status/2096035437299237298",
+      "reason": "The full Astra reset is explicitly banked for eligible paid plans and does not immediately replenish the shared quota."
     }
   ]
 }
