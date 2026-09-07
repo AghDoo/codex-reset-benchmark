@@ -45,12 +45,14 @@ class GroundTruthFreshnessTests(unittest.TestCase):
             )
 
     def test_invalid_threshold_is_rejected(self) -> None:
-        with self.assertRaises(ValueError):
-            evaluate_ground_truth_freshness(
-                {"reviewed_at": "2026-08-22T00:00:00Z"},
-                now=self.now,
-                max_age_hours=True,
-            )
+        for value in (True, float("nan"), float("inf"), float("-inf"), 0, -1):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    evaluate_ground_truth_freshness(
+                        {"reviewed_at": "2026-08-22T00:00:00Z"},
+                        now=self.now,
+                        max_age_hours=value,
+                    )
 
 
 if __name__ == "__main__":

@@ -6,12 +6,31 @@
   const dataBases = !isLocal && liveDataBase ? [liveDataBase, relativeDataBase] : [relativeDataBase];
   const locale = body.dataset.locale || "en";
   const t = {
-    en: { noData: "No archived forecast yet.", provisional: "provisional", eligible: "ranked", stale: "stale", live: "fresh", never: "not collected", window: "window" },
-    "zh-TW": { noData: "尚未封存任何預測資料。", provisional: "暫定", eligible: "已納入排名", stale: "資料過舊", live: "新鮮", never: "尚未蒐集", window: "區間" }
+    en: {
+      noData: "No archived forecast yet.",
+      provisional: "provisional",
+      eligible: "ranked",
+      stale: "stale",
+      live: "fresh",
+      never: "not collected",
+      window: "window",
+      groundTruthStale: "Ground Truth review is stale. Rankings are frozen at the last reviewed boundary until event history is reviewed."
+    },
+    "zh-TW": {
+      noData: "尚未封存任何預測資料。",
+      provisional: "暫定",
+      eligible: "已納入排名",
+      stale: "資料過舊",
+      live: "新鮮",
+      never: "尚未蒐集",
+      window: "區間",
+      groundTruthStale: "Ground Truth 審核已過期；排行榜目前凍結在最後一次 reviewed boundary，直到事件歷史完成審核。"
+    }
   }[locale];
   const fmtPct = value => value == null ? "—" : `${(value * 100).toFixed(value * 100 % 1 ? 1 : 0)}%`;
   const fmtNum = value => value == null ? "—" : Number(value).toFixed(4);
   const esc = value => String(value ?? "").replace(/[&<>\"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
   async function loadJson(name) {
     let lastError = null;
     for (const dataBase of dataBases) {
@@ -19,15 +38,21 @@
         const response = await fetch(`${dataBase}/${name}`, {cache: "no-store"});
         if (!response.ok) throw new Error(`${name}: HTTP ${response.status}`);
         return await response.json();
-      } catch (error) { lastError = error; }
+      } catch (error) {
+        lastError = error;
+      }
     }
     throw lastError || new Error(`${name}: unavailable`);
   }
+
   function renderRanking(targetId, rows) {
     const target = document.getElementById(targetId);
     if (!target) return;
-    target.innerHTML = (rows || []).map(row => `<tr><td>${row.rank ?? "—"}</td><td><a href="${esc(row.url)}" rel="noopener noreferrer">${esc(row.name)}</a></td><td>${fmtNum(row.brier)}</td><td>${fmtNum(row.log_loss)}</td><td>${fmtPct(row.hit_rate)}</td><td>${row.samples}</td><td>${fmtPct(row.availability)}</td><td><span class="badge ${row.eligible ? "good" : "warn"}">${row.eligible ? t.eligible : t.provisional}</span></td></tr>`).join("");
+    target.innerHTML = (rows || []).map(row =>
+      `<tr><td>${row.rank ?? "—"}</td><td><a href="${esc(row.url)}" rel="noopener noreferrer">${esc(row.name)}</a></td><td>${fmtNum(row.brier)}</td><td>${fmtNum(row.log_loss)}</td><td>${fmtPct(row.hit_rate)}</td><td>${row.samples}</td><td>${row.coverage_samples ?? row.samples}</td><td>${fmtPct(row.availability)}</td><td><span class="badge ${row.eligible ? "good" : "warn"}">${row.eligible ? t.eligible : t.provisional}</span></td></tr>`
+    ).join("");
   }
+
   function renderLatest(payload) {
     const reset = payload.latest_confirmed_reset;
     const resetEl = document.getElementById("latest-reset");
@@ -50,13 +75,32 @@
       return `<div class="card"><div class="source-row"><strong><a href="${esc(source.url)}" rel="noopener noreferrer">${esc(source.name)}</a></strong><span class="badge ${source.stale ? "warn" : latest ? "good" : ""}">${freshness}</span></div><div class="metric">${forecast}</div><div class="small muted">${latest ? esc(latest.observed_at) : "—"}</div></div>`;
     }).join("");
   }
+
   Promise.all([loadJson("leaderboard.json"), loadJson("latest.json"), loadJson("meta.json")]).then(([leaderboard, latest, meta]) => {
     const rankings = leaderboard.rankings || {};
     renderRanking("ranking-5h", rankings["5h"] || []);
     renderRanking("ranking-24h", rankings["24h"] || []);
     renderRanking("ranking-48h", rankings["48h"] || []);
     renderLatest(latest || {});
-    const updated = document.getElementById("updated-at"); if (updated) updated.textContent = meta.generated_at ? new Date(meta.generated_at).toLocaleString() : "—";
-    const count = document.getElementById("snapshot-count"); if (count) count.textContent = meta.snapshot_count ?? 0;
-  }).catch(error => { const errorEl = document.getElementById("load-error"); if (errorEl) errorEl.textContent = error.message; console.error(error); });
+
+    const updated = document.getElementById("updated-at");
+    if (updated) updated.textContent = meta.generated_at ? new Date(meta.generated_at).toLocaleString() : "—";
+    const count = document.getElementById("snapshot-count");
+    if (count) count.textContent = meta.snapshot_count ?? 0;
+
+    const reviewed = document.getElementById("ground-truth-reviewed");
+    if (reviewed) reviewed.textContent = meta.ground_truth_reviewed_at ? new Date(meta.ground_truth_reviewed_at).toLocaleString() : "—";
+    const warning = document.getElementById("ground-truth-warning");
+    if (warning && meta.ground_truth_reviewed_at) {
+      const ageHours = (Date.now() - new Date(meta.ground_truth_reviewed_at).getTime()) / 3600000;
+      if (ageHours > 36) {
+        warning.hidden = false;
+        warning.textContent = t.groundTruthStale;
+      }
+    }
+  }).catch(error => {
+    const errorEl = document.getElementById("load-error");
+    if (errorEl) errorEl.textContent = error.message;
+    console.error(error);
+  });
 })();

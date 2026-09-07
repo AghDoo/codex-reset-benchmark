@@ -45,7 +45,7 @@ For a source-defined variable forecast window, a snapshot may instead carry an e
 }
 ```
 
-Variable-window forecasts are preserved as-issued. V1 does not coerce source-defined text windows into the fixed 5h/24h/48h scoring buckets; they are archive/display data until a methodology explicitly defines a reproducible mapping.
+Variable-window forecasts are preserved as-issued. Methodology 1.1 does not coerce source-defined text windows into the fixed 5h/24h/48h scoring buckets; they remain archive/display data until a methodology explicitly defines a reproducible mapping.
 
 `raw_sha256` proves whether the retrieved representation changed without storing or republishing the full third-party page.
 
@@ -101,3 +101,11 @@ Files under `docs/generated/` are generated output and can be replaced at any ti
 - `latest.json`
 - `sources.json`
 - `meta.json`
+
+Under methodology 1.1, `leaderboard.json` also exposes:
+
+- `comparison_mode = "common_case_intersection"`
+- `ranking_cohorts`: source IDs included in each fixed-horizon official comparison cohort
+- `common_checkpoint_counts`: number of shared resolved checkpoints used by that cohort
+
+Each ranking row distinguishes `samples` (official score cases) from `coverage_samples` (all source-specific fresh resolved cases). `comparison_basis` records whether the row uses the official common-case intersection or source-specific provisional cases. Availability remains source-specific.

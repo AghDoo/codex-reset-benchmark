@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import unittest
 
 from codex_reset_benchmark.score_engine import score_archive
@@ -87,6 +87,58 @@ class ScoringTests(unittest.TestCase):
         checkpoints = [case["checkpoint"] for case in result["sources"]["a"]["24h"]["cases"]]
         self.assertEqual(checkpoints, ["2026-08-01T00:00:00Z"])
         self.assertEqual(result["ground_truth_reviewed_at"], "2026-08-02T00:00:00Z")
+
+
+    def test_ranked_sources_use_identical_common_cases(self) -> None:
+        sources = [
+            {"id": "a", "name": "A", "url": "https://a.test", "enabled": True},
+            {"id": "b", "name": "B", "url": "https://b.test", "enabled": True},
+        ]
+        start = datetime(2026, 8, 1, 0, 0, tzinfo=timezone.utc)
+        snapshots = []
+        for index in range(12):
+            observed = start + timedelta(hours=6 * index)
+            observed_at = observed.isoformat().replace("+00:00", "Z")
+            snapshots.append(
+                {
+                    "snapshot_id": f"a-{index}",
+                    "source_id": "a",
+                    "observed_at": observed_at,
+                    "forecasts": {"24h": 0.4},
+                }
+            )
+            if index not in {3, 4}:
+                snapshots.append(
+                    {
+                        "snapshot_id": f"b-{index}",
+                        "source_id": "b",
+                        "observed_at": observed_at,
+                        "forecasts": {"24h": 0.6},
+                    }
+                )
+
+        events = [{"id": "e1", "status": "confirmed", "occurred_at": "2026-08-02T01:00:00Z"}]
+        result = score_archive(
+            snapshots,
+            events,
+            sources,
+            as_of=datetime(2026, 8, 4, 18, 0, tzinfo=timezone.utc),
+        )
+
+        metrics_a = result["sources"]["a"]["24h"]
+        metrics_b = result["sources"]["b"]["24h"]
+        self.assertEqual(result["methodology_version"], "1.1.0")
+        self.assertEqual(result["comparison_mode"], "common_case_intersection")
+        self.assertEqual(result["ranking_cohorts"]["24h"], ["a", "b"])
+        self.assertEqual(result["common_checkpoint_counts"]["24h"], 11)
+        self.assertEqual(metrics_a["coverage_samples"], 12)
+        self.assertEqual(metrics_b["coverage_samples"], 11)
+        self.assertEqual(metrics_a["samples"], 11)
+        self.assertEqual(metrics_b["samples"], 11)
+        self.assertEqual(
+            [case["checkpoint"] for case in metrics_a["cases"]],
+            [case["checkpoint"] for case in metrics_b["cases"]],
+        )
 
 
 if __name__ == "__main__":

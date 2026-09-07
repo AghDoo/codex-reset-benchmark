@@ -32,11 +32,14 @@ def build_site_data(repo_root: Path, *, now: datetime | None = None) -> dict[str
         for key in (
             "schema_version",
             "methodology_version",
+            "comparison_mode",
             "generated_at",
             "ground_truth_reviewed_at",
             "checkpoint_hours_utc",
             "max_forecast_age_hours",
             "minimum_rank_samples",
+            "ranking_cohorts",
+            "common_checkpoint_counts",
             "rankings",
             "baselines",
         )

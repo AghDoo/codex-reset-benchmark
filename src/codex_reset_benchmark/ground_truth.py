@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import math
 from typing import Any
 
 from .models import isoformat_z, parse_datetime
@@ -14,8 +15,13 @@ def evaluate_ground_truth_freshness(
     now: datetime | None = None,
     max_age_hours: float = DEFAULT_MAX_REVIEW_AGE_HOURS,
 ) -> dict[str, Any]:
-    if isinstance(max_age_hours, bool) or not isinstance(max_age_hours, (int, float)) or max_age_hours <= 0:
-        raise ValueError("max_age_hours must be a positive number")
+    if (
+        isinstance(max_age_hours, bool)
+        or not isinstance(max_age_hours, (int, float))
+        or not math.isfinite(float(max_age_hours))
+        or max_age_hours <= 0
+    ):
+        raise ValueError("max_age_hours must be a finite positive number")
 
     checked_at = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     reviewed_at = parse_datetime(payload["reviewed_at"]).astimezone(timezone.utc)
