@@ -30,7 +30,7 @@
     "5h": 0
   },
   "comparison_mode": "common_case_intersection",
-  "generated_at": "2026-09-07T16:30:53Z",
+  "generated_at": "2026-09-07T20:37:41Z",
   "ground_truth_reviewed_at": "2026-09-07T08:44:00Z",
   "max_forecast_age_hours": {
     "24h": 6,
