@@ -17,7 +17,7 @@ The repository itself is the audit trail: forecast snapshots are append-only NDJ
 ## Principles
 
 - **As-issued evidence:** score what a site actually published at collection time, not reconstructed history.
-- **Common checkpoints:** high-frequency publishers do not receive extra weight.
+- **Common comparison cases:** ranked sources within a horizon are scored on the same intersection of fresh resolved checkpoints; missing forecasts are never imputed.
 - **Probabilistic scoring:** Brier Score is the primary metric; calibration, log loss, binary hit rate, sample count, and availability are secondary diagnostics.
 - **Horizon separation:** 5h, 24h, and 48h forecasts are scored separately.
 - **Public-only collection:** collectors use only public endpoints and stop at access controls.
@@ -31,7 +31,7 @@ The repository itself is the audit trail: forecast snapshots are append-only NDJ
 | 24h | Mean Brier Score ↓ | 00:00, 06:00, 12:00, 18:00 UTC | 10 resolved forecasts |
 | 48h | Mean Brier Score ↓ | 00:00, 06:00, 12:00, 18:00 UTC | 10 resolved forecasts |
 
-A 5h forecast must be no more than one hour old at a checkpoint; 24h and 48h forecasts may be no more than six hours old. Outcomes are resolved only after the full horizon has elapsed. V1 fully supports 5h, 24h, and 48h scoring even though the initial source set currently exposes no reliable machine-readable 5h forecast.
+A 5h forecast must be no more than one hour old at a checkpoint; 24h and 48h forecasts may be no more than six hours old. Outcomes are resolved only after the full horizon has elapsed and Ground Truth has been reviewed through the window. Methodology 1.1 ranks eligible sources on an identical common-case intersection; availability still reports each source's own coverage.
 
 ## Repository layout
 
