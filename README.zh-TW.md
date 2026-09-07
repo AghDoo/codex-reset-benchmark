@@ -15,7 +15,7 @@ Repository 本身就是 audit trail：forecast snapshot 以 append-only NDJSON �
 ## 核心原則
 
 - **As-issued evidence：** 評分網站當時真正發布的預測，不事後重建歷史。
-- **共同 checkpoint：** 更新頻率高的網站不會因此取得較高權重。
+- **共同比較案例：** 同一 horizon 的正式排名只使用所有排名來源都具有 fresh forecast 的已結算 checkpoint 交集；缺失預測不做插值。
 - **機率預測評分：** Brier Score 為主指標；Calibration、Log Loss、二元 Hit Rate、樣本數與 availability 為輔助診斷。
 - **不同 horizon 分開評分：** 5h、24h 與 48h 不混算。
 - **只蒐集公開資料：** collector 只使用公開端點，遇到存取限制即停止。
@@ -29,7 +29,7 @@ Repository 本身就是 audit trail：forecast snapshot 以 append-only NDJSON �
 | 24h | Mean Brier Score ↓ | UTC 00:00、06:00、12:00、18:00 | 10 筆已結算預測 |
 | 48h | Mean Brier Score ↓ | UTC 00:00、06:00、12:00、18:00 | 10 筆已結算預測 |
 
-5h forecast 在 checkpoint 時必須是 1 小時內的 snapshot；24h 與 48h 可採用 6 小時內最新 snapshot。完整 horizon 尚未經過前不結算該筆預測。V1 完整支援 5h、24h、48h scoring；只是首批來源目前沒有可靠、可機器讀取的 5h forecast，因此 5h 初始樣本會是 0。
+5h forecast 在 checkpoint 時必須是 1 小時內的 snapshot；24h 與 48h 可採用 6 小時內最新 snapshot。完整 horizon 尚未經過、或 Ground Truth 尚未審核完整 forecast window 前，都不結算該筆預測。Methodology 1.1 以相同 common-case 交集進行正式排名；Availability 仍反映各來源自己的資料覆蓋率。
 
 ## Repository 結構
 
