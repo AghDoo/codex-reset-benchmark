@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19T23:11:47Z",
+  "generated_at": "2026-09-20T01:15:12Z",
   "ground_truth_reviewed_at": "2026-09-07T08:44:00Z",
   "latest_confirmed_reset": {
     "announced_at": "2026-08-31T02:34:27.415Z",
@@ -27,12 +27,12 @@
           "24h": 0.2395307277,
           "48h": 0.4216864859
         },
-        "observed_at": "2026-09-19T23:11:42Z",
-        "raw_sha256": "a40f052c7fd81a7aeeb34054d7415fb81b995eca0fd68d8d326ed3f0170462d8",
+        "observed_at": "2026-09-20T01:15:08Z",
+        "raw_sha256": "e9e4b67f4a7be712f3748c197485b24dec05c225ec195c21faae2ec1c5d4e5f9",
         "schema_version": 1,
-        "snapshot_id": "27c9b5ecc644e5332c67d7bf",
+        "snapshot_id": "3d758936aec406b0765ba76d",
         "source_id": "codex-reset-com",
-        "source_updated_at": "2026-09-19T23:10:53Z",
+        "source_updated_at": "2026-09-20T01:13:53Z",
         "source_url": "https://codex-reset.com/api/forecast"
       },
       "name": "Codex Reset / Tibo Radar",
@@ -50,10 +50,10 @@
           "24h": 0.28,
           "48h": 0.49
         },
-        "observed_at": "2026-09-19T23:11:42Z",
-        "raw_sha256": "712375a6e71c54edafc1475ae5d7d2f58059efb7f4dfcb9b44df1a86ded06a10",
+        "observed_at": "2026-09-20T01:15:08Z",
+        "raw_sha256": "9c26b42af2aa555678779f09c06e77f64dad67e6fcee9f21030da61c99bea44e",
         "schema_version": 1,
-        "snapshot_id": "abc3c8bf715ce7e333e80e7f",
+        "snapshot_id": "f7c19f413171d708c88a5f1d",
         "source_id": "codexreset-org",
         "source_updated_at": null,
         "source_url": "https://codexreset.org/"
@@ -72,10 +72,10 @@
         "forecasts": {
           "48h": 0.45
         },
-        "observed_at": "2026-09-19T23:11:42Z",
-        "raw_sha256": "88892a6b9f6072f503818e1449b53c84444e4c43ab59f62b5c885e2459f0881c",
+        "observed_at": "2026-09-20T01:15:08Z",
+        "raw_sha256": "d333f915f1a3ace9ce1e508b7a2b3772b32377712fee9f2eddf3a014e30dfd6a",
         "schema_version": 1,
-        "snapshot_id": "aa202b8cd4aef4221fe71db0",
+        "snapshot_id": "d589f37483aaab8319016d04",
         "source_id": "codex-reset-radar",
         "source_updated_at": null,
         "source_url": "https://codexresetradar.com/"
@@ -85,7 +85,7 @@
       "url": "https://codexresetradar.com/"
     },
     {
-      "age_hours": 160.93,
+      "age_hours": 162.99,
       "enabled": true,
       "id": "codexreset-today",
       "latest": {
@@ -116,12 +116,12 @@
         "forecasts": {
           "48h": 0.12
         },
-        "observed_at": "2026-09-19T23:11:42Z",
-        "raw_sha256": "8a6881226ea850e08bd0394653ea6d681f40a228a8a46119cf64fc5c0ab3ae8e",
+        "observed_at": "2026-09-20T01:15:08Z",
+        "raw_sha256": "e390c266d25db138564469a559ac2d85d8a3832a3c85b4f9cafe7869e9b813ea",
         "schema_version": 1,
-        "snapshot_id": "0a91afe3d3316a1cc1876021",
+        "snapshot_id": "22ffc3dc2d38601324bf3638",
         "source_id": "willcodexquotareset",
-        "source_updated_at": "2026-09-19T22:47:22Z",
+        "source_updated_at": "2026-09-20T00:50:02Z",
         "source_url": "https://www.willcodexquotareset.com/api/forecast"
       },
       "name": "Will Codex Quota Reset",
@@ -129,7 +129,7 @@
       "url": "https://www.willcodexquotareset.com/"
     },
     {
-      "age_hours": 190.0,
+      "age_hours": 192.06,
       "enabled": true,
       "id": "codex-resets-com",
       "latest": {
