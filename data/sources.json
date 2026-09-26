@@ -176,6 +176,28 @@
         "authentication": "none",
         "notes": "The observed 94% item is presented as a meme/archive card rather than a clearly current machine-readable forecast."
       }
+    },
+    {
+      "id": "codexreset-ai",
+      "name": "CodexReset",
+      "url": "https://codexreset.ai/",
+      "forecast_url": "https://codexreset.ai/api/v1/forecast.json",
+      "enabled": true,
+      "collector": {
+        "type": "json_api",
+        "respect_robots": true,
+        "probabilities": {
+          "24h": {"path": "p24", "unit": "fraction"},
+          "48h": {"path": "p48", "unit": "fraction"}
+        },
+        "source_updated_path": "generated_at",
+        "max_source_age_hours": 6
+      },
+      "access": {
+        "kind": "public_api",
+        "authentication": "none",
+        "notes": "Documented at https://codexreset.ai/developers/. p24/p48 are null when the site has too little history to forecast; the static JSON is regenerated at least every 4 hours."
+      }
     }
   ]
 }
