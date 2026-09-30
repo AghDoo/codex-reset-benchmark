@@ -2,79 +2,69 @@
   "schema_version": 1,
   "sources": {
     "akiai-reset-radar": {
-      "checked_at": "2026-09-30T00:32:33Z",
+      "checked_at": "2026-09-30T06:48:37Z",
       "state": "disabled"
     },
     "codex-reset-com": {
       "archive_path": "data/forecasts/2026/09/30.ndjson",
-      "checked_at": "2026-09-30T00:32:33Z",
+      "checked_at": "2026-09-30T06:48:37Z",
       "forecasts": {
         "24h": 0.1703109774,
         "48h": 0.3116161258
       },
       "inserted": true,
-      "snapshot_id": "de579e775dc1e346058f9955",
+      "snapshot_id": "44e3eaffa441828eeddc0318",
       "state": "ok"
     },
     "codex-reset-radar": {
       "archive_path": "data/forecasts/2026/09/30.ndjson",
-      "checked_at": "2026-09-30T00:32:33Z",
+      "checked_at": "2026-09-30T06:48:37Z",
       "forecasts": {
         "48h": 0.45
       },
       "inserted": true,
-      "snapshot_id": "a6fc0e14c9fdf7a53a6565e8",
+      "snapshot_id": "0421869db43786aa156cdc4b",
       "state": "ok"
     },
     "codex-resets-com": {
-      "archive_path": "data/forecasts/2026/09/30.ndjson",
-      "checked_at": "2026-09-30T00:32:33Z",
-      "forecasts": {},
-      "inserted": true,
-      "snapshot_id": "a37155cb138a55fd251b7aba",
-      "state": "ok",
-      "window_forecast": {
-        "expires_at": "2026-09-30T06:59:59Z",
-        "forecast_window": "around OpenAI DevDay 2026 on September 29 (Pacific Time)",
-        "level": "strong",
-        "observed_at": "2026-09-27T10:39:35Z",
-        "probability": null
-      }
+      "checked_at": "2026-09-30T06:48:37Z",
+      "note": "source is healthy; no active forecast watch",
+      "state": "idle"
     },
     "codex-tibo-codes": {
-      "checked_at": "2026-09-30T00:32:33Z",
+      "checked_at": "2026-09-30T06:48:37Z",
       "state": "disabled"
     },
     "codexreset-org": {
       "archive_path": "data/forecasts/2026/09/30.ndjson",
-      "checked_at": "2026-09-30T00:32:33Z",
+      "checked_at": "2026-09-30T06:48:37Z",
       "forecasts": {
-        "24h": 0.48,
+        "24h": 0.44,
         "48h": 0.68
       },
       "inserted": true,
-      "snapshot_id": "c334bd652ec39bfb8fcb02c4",
+      "snapshot_id": "58a4231c9cf8d5cb2b542a00",
       "state": "ok"
     },
     "codexreset-today": {
-      "checked_at": "2026-09-30T00:32:33Z",
+      "checked_at": "2026-09-30T06:48:37Z",
       "error": "no forecast values were extracted; placeholders are not archived",
       "state": "error"
     },
     "willcodexquotareset": {
       "archive_path": "data/forecasts/2026/09/30.ndjson",
-      "checked_at": "2026-09-30T00:32:33Z",
+      "checked_at": "2026-09-30T06:48:37Z",
       "forecasts": {
-        "48h": 0.48
+        "48h": 0.5
       },
       "inserted": true,
-      "snapshot_id": "73959dcc78d52ce137027d56",
+      "snapshot_id": "5bb31705ea1197f15b82580d",
       "state": "ok"
     },
     "willcodexreset": {
-      "checked_at": "2026-09-30T00:32:33Z",
+      "checked_at": "2026-09-30T06:48:37Z",
       "state": "disabled"
     }
   },
-  "updated_at": "2026-09-30T00:32:33Z"
+  "updated_at": "2026-09-30T06:48:37Z"
 }
