@@ -10,6 +10,7 @@ Reviewed 2026-08-13; updated 2026-08-16. The machine-readable registry is `data/
 | codexreset.today | enabled | public HTML | 24h | headline probability explicitly labeled next-24h |
 | willcodexquotareset.com | enabled | public JSON API | 48h | public client loads `forecast.score` from `/api/forecast`; homepage HTML can remain a loading placeholder |
 | codex-resets.com | enabled | public JSON API | variable window, archive-only | documented `/api/v1/status` exposes optional `active_watch` with probability, forecast window, observed time, and expiry; `null` means no active watch |
+| whenreset.app | enabled | public JSON API | 24h, 48h | `/api/forecast` is publicly documented at `/tools/backtest/`, which also publishes a walk-forward backtest (Brier score, per-checkpoint, no future data used) of the exact model the endpoint serves against the site's own historical event data; target definition (broad/global hard reset, banked reset grants excluded) matches this benchmark's `qualifying_public_reset_event` |
 | akiai.cn radar | disabled | public JSON | 24h, 48h | observed feed was stale during review |
 | willcodexreset.com | disabled | public HTML | unknown | SSR can expose placeholder 0% while horizon fields are loading; needs stable endpoint |
 | codex-tibo.codes | disabled | manual | n/a | observed 94% content is presented as a meme/archive card, not clearly a current forecast |
