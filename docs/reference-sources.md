@@ -13,6 +13,7 @@ Reviewed 2026-08-13; updated 2026-08-16. The machine-readable registry is `data/
 | akiai.cn radar | disabled | public JSON | 24h, 48h | observed feed was stale during review |
 | willcodexreset.com | disabled | public HTML | unknown | SSR can expose placeholder 0% while horizon fields are loading; needs stable endpoint |
 | codex-tibo.codes | disabled | manual | n/a | observed 94% content is presented as a meme/archive card, not clearly a current forecast |
+| codexreset.ai | enabled | public JSON API | 24h, 48h | documented `/api/v1/forecast.json` exposes `p24`/`p48` fractions with `generated_at`; regenerated at least every 4 hours |
 
 A registered source is not automatically benchmark-eligible. The collector must demonstrate that it can distinguish a published forecast from placeholders and stale output.
 
