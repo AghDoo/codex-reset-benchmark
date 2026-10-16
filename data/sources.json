@@ -126,6 +126,33 @@
       }
     },
     {
+      "id": "whenreset-app",
+      "name": "WhenReset",
+      "url": "https://whenreset.app/",
+      "forecast_url": "https://whenreset.app/api/forecast",
+      "enabled": true,
+      "collector": {
+        "type": "json_api",
+        "respect_robots": true,
+        "probabilities": {
+          "24h": {
+            "path": "probabilities.raw_24h",
+            "unit": "fraction"
+          },
+          "48h": {
+            "path": "probabilities.raw_48h",
+            "unit": "fraction"
+          }
+        },
+        "source_updated_path": "updated_at"
+      },
+      "access": {
+        "kind": "public_api",
+        "authentication": "none",
+        "notes": "The site publicly documents /api/forecast and its walk-forward backtest methodology at https://whenreset.app/tools/backtest/; the endpoint targets the same broad-hard-reset definition this benchmark uses (banked reset grants excluded)."
+      }
+    },
+    {
       "id": "akiai-reset-radar",
       "name": "Aki Codex Reset Radar",
       "url": "https://akiai.cn/radar/en/index.html",
